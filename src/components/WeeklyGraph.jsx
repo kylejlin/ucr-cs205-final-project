@@ -31,15 +31,15 @@ function WeeklyGraph() {
   }, [moodEntries])
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6">
-      <h3 className="text-xl font-semibold text-gray-800 mb-4">Last 7 Days – Average Mood</h3>
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+      <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-4">Last 7 Days – Average Mood</h3>
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={weeklyData}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="day" />
-          <YAxis domain={[0, 5]} ticks={[0, 1, 2, 3, 4, 5]} />
-          <Tooltip />
-          <Bar dataKey="averageMood" fill="#6366f1" name="Average Mood (1–5)" />
+          <CartesianGrid strokeDasharray="3 3" className="stroke-gray-200 dark:stroke-gray-700" />
+          <XAxis dataKey="day" className="text-gray-600 dark:text-gray-400" />
+          <YAxis domain={[0, 5]} ticks={[0, 1, 2, 3, 4, 5]} className="text-gray-600 dark:text-gray-400" />
+          <Tooltip cursor={{ fill: 'rgba(156, 163, 175, 0.2)' }} wrapperClassName="dark:!bg-gray-800 dark:!text-gray-100 dark:!border-gray-700" />
+          <Bar dataKey="averageMood" className="fill-indigo-500 dark:fill-purple-400" name="Average Mood (1–5)" />
         </BarChart>
       </ResponsiveContainer>
     </div>

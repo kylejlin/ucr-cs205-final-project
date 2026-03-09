@@ -36,23 +36,23 @@ function DailyGraph() {
   const hasTodayData = dailyData.length > 0
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6">
-      <h3 className="text-xl font-semibold text-gray-800 mb-2">Today&apos;s Mood</h3>
-      <p className="text-sm text-gray-500 mb-4">{todayStr}</p>
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+      <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">Today&apos;s Mood</h3>
+      <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">{todayStr}</p>
       {!hasTodayData && (
-        <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-          <p className="text-sm text-yellow-700">
+        <div className="mb-4 p-3 bg-yellow-50 dark:bg-yellow-900/40 border border-yellow-200 dark:border-yellow-800 rounded-lg">
+          <p className="text-sm text-yellow-700 dark:text-yellow-200">
             No moods logged for today yet. Record how you feel to see it here.
           </p>
         </div>
       )}
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={dailyData}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="time" />
-          <YAxis domain={[1, 5]} ticks={[1, 2, 3, 4, 5]} />
-          <Tooltip />
-          <Line type="monotone" dataKey="mood" stroke="#6366f1" strokeWidth={2} name="Mood (1–5)" />
+          <CartesianGrid strokeDasharray="3 3" className="stroke-gray-200 dark:stroke-gray-700" />
+          <XAxis dataKey="time" className="text-gray-600 dark:text-gray-400" />
+          <YAxis domain={[1, 5]} ticks={[1, 2, 3, 4, 5]} className="text-gray-600 dark:text-gray-400" />
+          <Tooltip wrapperClassName="dark:!bg-gray-800 dark:!text-gray-100 dark:!border-gray-700" />
+          <Line type="monotone" dataKey="mood" className="stroke-indigo-500 dark:stroke-purple-400" fill="none" strokeWidth={2} name="Mood (1–5)" />
         </LineChart>
       </ResponsiveContainer>
     </div>
