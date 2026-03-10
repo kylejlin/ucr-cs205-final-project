@@ -218,6 +218,7 @@ function FileManager() {
     {
       "id": 1234567890,
       "mood": 4,
+      "note": "Feeling pretty good today!",
       "timestamp": "2024-01-15T12:00:00.000Z",
       "time": "12:00 PM",
       "date": "1/15/2024"

@@ -18,7 +18,7 @@ export function HealthDataProvider({ children }) {
       const loaded = loadData()
       setMoodEntries(loaded.moodEntries)
       setIsLoaded(true)
-      
+
       // Try to set up file auto-save
       const handleInfo = getFileHandleInfo()
       if (handleInfo && 'showOpenFilePicker' in window) {
@@ -26,15 +26,15 @@ export function HealthDataProvider({ children }) {
         if (handle) {
           fileHandleRef.current = handle
           setFileHandle(handle)
-          
+
           // Load data from file if it's newer
           const fileData = await readFile(handle)
           if (fileData?.moodEntries) {
             const fileDate = fileData.lastSaved ? new Date(fileData.lastSaved) : null
-            const storageDate = loaded.moodEntries.length > 0 
-              ? new Date(Math.max(...loaded.moodEntries.map(e => e.id))) 
+            const storageDate = loaded.moodEntries.length > 0
+              ? new Date(Math.max(...loaded.moodEntries.map(e => e.id)))
               : null
-            
+
             if (!storageDate || (fileDate && fileDate > storageDate)) {
               setMoodEntries(fileData.moodEntries)
               saveData(fileData.moodEntries)
@@ -55,7 +55,7 @@ export function HealthDataProvider({ children }) {
         }
       }
     }
-    
+
     initialize()
   }, [])
 
@@ -76,7 +76,7 @@ export function HealthDataProvider({ children }) {
       moodEntries,
       lastSaved: new Date().toISOString()
     })
-    
+
     if (success) {
       setFileStatus('saved')
       setTimeout(() => setFileStatus('none'), 2000)
@@ -104,7 +104,7 @@ export function HealthDataProvider({ children }) {
       fileHandleRef.current = handle
       setFileHandle(handle)
       saveFileHandleInfo(handle)
-      
+
       const data = await readFile(handle)
       if (data?.moodEntries) {
         setMoodEntries(data.moodEntries)
@@ -136,17 +136,23 @@ export function HealthDataProvider({ children }) {
   }
 
   const importData = (jsonString) => {
-    try {
-      const data = JSON.parse(jsonString)
-      if (data.moodEntries && Array.isArray(data.moodEntries)) {
+    const data = JSON.parse(jsonString)
+    if (data.moodEntries && Array.isArray(data.moodEntries)) {
+      const isValid = data.moodEntries.every(entry =>
+        entry.id &&
+        typeof entry.mood === 'number' &&
+        entry.timestamp &&
+        entry.time &&
+        entry.date &&
+        (entry.note === undefined || typeof entry.note === 'string')
+      )
+
+      if (isValid) {
         setAllData(data.moodEntries)
         return true
       }
-      return false
-    } catch (error) {
-      console.error('Error importing data:', error)
-      return false
     }
+    return false
   }
 
   return (
