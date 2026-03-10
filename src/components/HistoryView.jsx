@@ -47,6 +47,11 @@ function HistoryView() {
                         <span className="text-gray-500 dark:text-gray-400 text-sm ml-2">
                           • {entry.time}
                         </span>
+                        {entry.note && (
+                          <p className="text-sm mt-2 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 p-2 rounded border border-gray-100 dark:border-gray-600 shadow-sm">
+                            {entry.note}
+                          </p>
+                        )}
                       </div>
                       <button
                         onClick={() => {

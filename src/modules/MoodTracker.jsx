@@ -13,6 +13,7 @@ const MOOD_LABELS = {
 function MoodTracker() {
   const { moodEntries, addMoodEntry, deleteMoodEntry } = useHealthData()
   const [selectedMood, setSelectedMood] = useState(null)
+  const [note, setNote] = useState('')
 
   const handleSelectMood = (mood) => {
     setSelectedMood(mood)
@@ -26,6 +27,7 @@ function MoodTracker() {
     const newEntry = {
       id: Date.now(),
       mood: selectedMood,
+      note: note.trim(),
       timestamp: now.toISOString(),
       date: getTodayFormatted(),
       time: now.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' }),
@@ -33,6 +35,7 @@ function MoodTracker() {
 
     addMoodEntry(newEntry)
     setSelectedMood(null)
+    setNote('')
   }
 
   const latestEntry = moodEntries.length > 0
@@ -54,8 +57,8 @@ function MoodTracker() {
             key={mood}
             onClick={() => handleSelectMood(mood)}
             className={`flex-1 py-3 rounded-lg font-semibold border transition-colors ${selectedMood === mood
-                ? 'bg-indigo-600 dark:bg-purple-500 text-white border-indigo-600 dark:border-purple-500'
-                : 'bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600'
+              ? 'bg-indigo-600 dark:bg-purple-500 text-white border-indigo-600 dark:border-purple-500'
+              : 'bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600'
               }`}
           >
             <div className="text-lg">{mood}</div>
@@ -69,12 +72,20 @@ function MoodTracker() {
         ))}
       </div>
 
+      <textarea
+        value={note}
+        onChange={(e) => setNote(e.target.value)}
+        placeholder="Add an optional note about how you're feeling..."
+        className="w-full p-3 mb-6 border rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-indigo-500 dark:focus:ring-purple-500 focus:border-transparent outline-none transition-colors resize-y"
+        rows="3"
+      />
+
       <button
         onClick={handleSubmit}
         disabled={!selectedMood}
         className={`w-full mb-6 py-2 px-4 rounded-lg font-medium transition-colors ${selectedMood
-            ? 'bg-indigo-600 dark:bg-purple-500 text-white hover:bg-indigo-700 dark:hover:bg-purple-600'
-            : 'bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
+          ? 'bg-indigo-600 dark:bg-purple-500 text-white hover:bg-indigo-700 dark:hover:bg-purple-600'
+          : 'bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
           }`}
       >
         Save how I feel
