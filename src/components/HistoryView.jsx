@@ -2,11 +2,15 @@ import { useMemo } from 'react'
 import { useHealthData } from '../context/HealthDataContext'
 
 function HistoryView() {
-  const { moodEntries, deleteMoodEntry } = useHealthData()
+  const { moodEntries, exerciseEntries, deleteMoodEntry, deleteExerciseEntry } = useHealthData()
 
   const sortedEntries = useMemo(() => {
-    return [...moodEntries].sort((a, b) => b.id - a.id)
-  }, [moodEntries])
+    const allEntries = [
+      ...moodEntries.map(e => ({ ...e, entryType: 'mood' })),
+      ...(exerciseEntries || []).map(e => ({ ...e, entryType: 'exercise' }))
+    ]
+    return allEntries.sort((a, b) => b.id - a.id)
+  }, [moodEntries, exerciseEntries])
 
   const groupedByDate = useMemo(() => {
     const grouped = {}
@@ -41,22 +45,42 @@ function HistoryView() {
                       className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
                     >
                       <div className="flex-1">
-                        <span className="font-medium text-gray-800 dark:text-gray-100">
-                          Mood: {entry.mood}
-                        </span>
-                        <span className="text-gray-500 dark:text-gray-400 text-sm ml-2">
-                          • {entry.time}
-                        </span>
-                        {entry.note && (
-                          <p className="text-sm mt-2 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 p-2 rounded border border-gray-100 dark:border-gray-600 shadow-sm">
-                            {entry.note}
-                          </p>
+                        {entry.entryType === 'mood' ? (
+                          <>
+                            <span className="font-medium text-gray-800 dark:text-gray-100">
+                              Mood: {entry.mood}
+                            </span>
+                            <span className="text-gray-500 dark:text-gray-400 text-sm ml-2">
+                              • {entry.time}
+                            </span>
+                            {entry.note && (
+                              <p className="text-sm mt-2 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 p-2 rounded border border-gray-100 dark:border-gray-600 shadow-sm">
+                                {entry.note}
+                              </p>
+                            )}
+                          </>
+                        ) : (
+                          <>
+                            <span className="font-medium text-gray-800 dark:text-gray-100">
+                              Exercise: {entry.type} ({entry.duration} min)
+                            </span>
+                            {entry.calories && (
+                              <span className="text-gray-600 dark:text-gray-300 text-sm ml-2">
+                                | {entry.calories} kcal
+                              </span>
+                            )}
+                            <span className="text-gray-500 dark:text-gray-400 text-sm ml-2">
+                              • {entry.time}
+                            </span>
+                          </>
                         )}
                       </div>
                       <button
                         onClick={() => {
-                          if (window.confirm('Delete this mood entry?')) {
-                            deleteMoodEntry(entry.id)
+                          if (entry.entryType === 'mood') {
+                            if (window.confirm('Delete this mood entry?')) deleteMoodEntry(entry.id)
+                          } else {
+                            if (window.confirm('Delete this exercise entry?')) deleteExerciseEntry(entry.id)
                           }
                         }}
                         className="text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 font-medium text-sm ml-4 px-2 py-1 rounded hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors"

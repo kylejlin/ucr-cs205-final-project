@@ -61,7 +61,7 @@ function FileManager() {
 
   const handleClear = () => {
     if (window.confirm('Are you sure you want to clear all data? This cannot be undone.')) {
-      importData(JSON.stringify({ moodEntries: [] }))
+      importData(JSON.stringify({ moodEntries: [], exerciseEntries: [] }))
       setImportText('')
       setImportSuccess(true)
       setTimeout(() => setImportSuccess(false), 3000)
@@ -173,7 +173,7 @@ function FileManager() {
               id="importText"
               value={importText}
               onChange={(e) => setImportText(e.target.value)}
-              placeholder='{"moodEntries": [...] }'
+              placeholder='{"moodEntries": [...], "exerciseEntries": [...] }'
               className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:focus:ring-purple-500 focus:border-transparent font-mono text-sm bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100"
               rows="8"
             />
@@ -221,6 +221,17 @@ function FileManager() {
       "note": "Feeling pretty good today!",
       "timestamp": "2024-01-15T12:00:00.000Z",
       "time": "12:00 PM",
+      "date": "1/15/2024"
+    }
+  ],
+  "exerciseEntries": [
+    {
+      "id": 1234567891,
+      "type": "Running",
+      "duration": 30,
+      "calories": 300,
+      "timestamp": "2024-01-15T14:00:00.000Z",
+      "time": "2:00 PM",
       "date": "1/15/2024"
     }
   ]

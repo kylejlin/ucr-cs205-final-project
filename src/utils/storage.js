@@ -8,6 +8,7 @@ export function loadData() {
       const data = JSON.parse(stored)
       return {
         moodEntries: data.moodEntries || [],
+        exerciseEntries: data.exerciseEntries || [],
       }
     }
   } catch (error) {
@@ -15,12 +16,13 @@ export function loadData() {
   }
   return {
     moodEntries: [],
+    exerciseEntries: [],
   }
 }
 
-export function saveData(moodEntries) {
+export function saveData(moodEntries, exerciseEntries = []) {
   try {
-    const data = { moodEntries }
+    const data = { moodEntries, exerciseEntries }
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
   } catch (error) {
     console.error('Error saving to localStorage:', error)

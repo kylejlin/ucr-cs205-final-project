@@ -6,6 +6,7 @@ const HealthDataContext = createContext()
 
 export function HealthDataProvider({ children }) {
   const [moodEntries, setMoodEntries] = useState([])
+  const [exerciseEntries, setExerciseEntries] = useState([])
   const [isLoaded, setIsLoaded] = useState(false)
   const [fileHandle, setFileHandle] = useState(null)
   const [fileStatus, setFileStatus] = useState('none') // 'none', 'saving', 'saved', 'error'
@@ -17,6 +18,7 @@ export function HealthDataProvider({ children }) {
       // Load from localStorage first
       const loaded = loadData()
       setMoodEntries(loaded.moodEntries)
+      setExerciseEntries(loaded.exerciseEntries)
       setIsLoaded(true)
 
       // Try to set up file auto-save
@@ -29,15 +31,16 @@ export function HealthDataProvider({ children }) {
 
           // Load data from file if it's newer
           const fileData = await readFile(handle)
-          if (fileData?.moodEntries) {
+          if (fileData) {
             const fileDate = fileData.lastSaved ? new Date(fileData.lastSaved) : null
-            const storageDate = loaded.moodEntries.length > 0
-              ? new Date(Math.max(...loaded.moodEntries.map(e => e.id)))
-              : null
-
+            let maxId = 0;
+            if (loaded.moodEntries?.length > 0) maxId = Math.max(maxId, ...loaded.moodEntries.map(e => e.id));
+            if (loaded.exerciseEntries?.length > 0) maxId = Math.max(maxId, ...loaded.exerciseEntries.map(e => e.id));
+            const storageDate = maxId > 0 ? new Date(maxId) : null;
             if (!storageDate || (fileDate && fileDate > storageDate)) {
-              setMoodEntries(fileData.moodEntries)
-              saveData(fileData.moodEntries)
+              if (fileData.moodEntries) setMoodEntries(fileData.moodEntries)
+              if (fileData.exerciseEntries) setExerciseEntries(fileData.exerciseEntries)
+              saveData(fileData.moodEntries || [], fileData.exerciseEntries || [])
             }
           }
         }
@@ -50,6 +53,7 @@ export function HealthDataProvider({ children }) {
           saveFileHandleInfo(handle)
           await writeFile(handle, {
             moodEntries: loaded.moodEntries,
+            exerciseEntries: loaded.exerciseEntries,
             lastSaved: new Date().toISOString()
           })
         }
@@ -62,10 +66,10 @@ export function HealthDataProvider({ children }) {
   // Auto-save to localStorage and file when data changes
   useEffect(() => {
     if (isLoaded) {
-      saveData(moodEntries)
+      saveData(moodEntries, exerciseEntries)
       saveToFile()
     }
-  }, [moodEntries, isLoaded])
+  }, [moodEntries, exerciseEntries, isLoaded])
 
   async function saveToFile() {
     const handle = fileHandleRef.current
@@ -74,6 +78,7 @@ export function HealthDataProvider({ children }) {
     setFileStatus('saving')
     const success = await writeFile(handle, {
       moodEntries,
+      exerciseEntries,
       lastSaved: new Date().toISOString()
     })
 
@@ -106,9 +111,10 @@ export function HealthDataProvider({ children }) {
       saveFileHandleInfo(handle)
 
       const data = await readFile(handle)
-      if (data?.moodEntries) {
-        setMoodEntries(data.moodEntries)
-        saveData(data.moodEntries)
+      if (data) {
+        if (data.moodEntries) setMoodEntries(data.moodEntries)
+        if (data.exerciseEntries) setExerciseEntries(data.exerciseEntries)
+        saveData(data.moodEntries || [], data.exerciseEntries || [])
         return true
       }
     }
@@ -123,44 +129,76 @@ export function HealthDataProvider({ children }) {
     setMoodEntries(moodEntries.filter(entry => entry.id !== id))
   }
 
-  const setAllData = (moodEntries) => {
-    setMoodEntries(moodEntries)
+  const addExerciseEntry = (entry) => {
+    setExerciseEntries([...exerciseEntries, entry])
+  }
+
+  const deleteExerciseEntry = (id) => {
+    setExerciseEntries(exerciseEntries.filter(entry => entry.id !== id))
+  }
+
+  const setAllData = (data) => {
+    if (data.moodEntries) setMoodEntries(data.moodEntries)
+    if (data.exerciseEntries) setExerciseEntries(data.exerciseEntries)
   }
 
   const exportData = () => {
     const data = {
       moodEntries,
+      exerciseEntries,
       exportedAt: new Date().toISOString(),
     }
     return JSON.stringify(data, null, 2)
   }
 
   const importData = (jsonString) => {
-    const data = JSON.parse(jsonString)
-    if (data.moodEntries && Array.isArray(data.moodEntries)) {
-      const isValid = data.moodEntries.every(entry =>
-        entry.id &&
-        typeof entry.mood === 'number' &&
-        entry.timestamp &&
-        entry.time &&
-        entry.date &&
-        (entry.note === undefined || typeof entry.note === 'string')
-      )
+    try {
+      const data = JSON.parse(jsonString)
+      let moodValid = true;
+      let exerciseValid = true;
 
-      if (isValid) {
-        setAllData(data.moodEntries)
+      if (data.moodEntries && Array.isArray(data.moodEntries)) {
+        moodValid = data.moodEntries.every(entry =>
+          entry.id &&
+          typeof entry.mood === 'number' &&
+          entry.timestamp &&
+          entry.time &&
+          entry.date &&
+          (entry.note === undefined || typeof entry.note === 'string')
+        )
+      }
+
+      if (data.exerciseEntries && Array.isArray(data.exerciseEntries)) {
+        exerciseValid = data.exerciseEntries.every(entry =>
+          entry.id &&
+          typeof entry.type === 'string' &&
+          typeof entry.duration === 'number' &&
+          entry.timestamp &&
+          entry.time &&
+          entry.date
+        )
+      }
+
+      if (moodValid && exerciseValid && (data.moodEntries || data.exerciseEntries)) {
+        setAllData(data)
         return true
       }
+      return false
+    } catch (error) {
+      console.error('Error importing data:', error)
+      return false
     }
-    return false
   }
 
   return (
     <HealthDataContext.Provider
       value={{
         moodEntries,
+        exerciseEntries,
         addMoodEntry,
         deleteMoodEntry,
+        addExerciseEntry,
+        deleteExerciseEntry,
         exportData,
         importData,
         setAllData,
