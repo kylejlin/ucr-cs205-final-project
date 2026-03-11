@@ -1,7 +1,9 @@
 import { useState, useRef, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useHealthData } from '../context/HealthDataContext'
 
 function FileManager() {
+  const { t } = useTranslation();
   const { exportData, importData, setupFileHandle, loadFromFile, fileHandle, fileStatus } = useHealthData()
   const [importText, setImportText] = useState('')
   const [importError, setImportError] = useState('')
@@ -45,7 +47,7 @@ function FileManager() {
     setImportSuccess(false)
 
     if (!jsonString.trim()) {
-      setImportError('Please provide JSON data')
+      setImportError(t('dataManager.errorNoData'))
       return
     }
 
@@ -55,12 +57,12 @@ function FileManager() {
       setImportText('')
       setTimeout(() => setImportSuccess(false), 3000)
     } else {
-      setImportError('Invalid data format. Please check your JSON structure.')
+      setImportError(t('dataManager.errorInvalidData'))
     }
   }
 
   const handleClear = () => {
-    if (window.confirm('Are you sure you want to clear all data? This cannot be undone.')) {
+    if (window.confirm(t('dataManager.clearConfirm'))) {
       importData(JSON.stringify({ moodEntries: [], exerciseEntries: [] }))
       setImportText('')
       setImportSuccess(true)
@@ -71,34 +73,34 @@ function FileManager() {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
       <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-4">
-        Data Management
+        {t('dataManager.title')}
       </h2>
 
       <div className="space-y-4">
         <div>
-          <h3 className="text-lg font-medium text-gray-700 dark:text-gray-200 mb-2">Auto-Save Status</h3>
+          <h3 className="text-lg font-medium text-gray-700 dark:text-gray-200 mb-2">{t('dataManager.autoSaveTitle')}</h3>
           <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
-            Data is automatically saved to a file whenever you make changes.
+            {t('dataManager.autoSaveDesc')}
           </p>
           {fileHandle ? (
             <div className="mb-3 p-3 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded-lg">
               <p className="text-sm text-green-700 dark:text-green-300">
-                <strong>Auto-save enabled:</strong> {fileHandle.name || 'File selected'}
+                <strong>{t('dataManager.autoSaveEnabled')}</strong> {fileHandle.name || t('dataManager.fileSelected')}
               </p>
               {fileStatus === 'saving' && (
-                <p className="text-xs text-green-600 dark:text-green-400 mt-1">Saving...</p>
+                <p className="text-xs text-green-600 dark:text-green-400 mt-1">{t('dataManager.saving')}</p>
               )}
               {fileStatus === 'saved' && (
-                <p className="text-xs text-green-600 dark:text-green-400 mt-1">Saved successfully!</p>
+                <p className="text-xs text-green-600 dark:text-green-400 mt-1">{t('dataManager.savedSuccess')}</p>
               )}
               {fileStatus === 'error' && (
-                <p className="text-xs text-red-600 dark:text-red-400 mt-1">Error saving to file</p>
+                <p className="text-xs text-red-600 dark:text-red-400 mt-1">{t('dataManager.saveError')}</p>
               )}
             </div>
           ) : (
             <div className="mb-3 p-3 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-lg">
               <p className="text-sm text-blue-700 dark:text-blue-300">
-                File will be set up automatically on first use. Your data is saved to browser storage.
+                {t('dataManager.noFileDesc')}
               </p>
             </div>
           )}
@@ -113,7 +115,7 @@ function FileManager() {
               }}
               className="flex-1 bg-indigo-600 dark:bg-purple-500 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 dark:hover:bg-purple-600 transition-colors font-medium"
             >
-              {fileHandle ? 'Change File Location' : 'Set Up File Now'}
+              {fileHandle ? t('dataManager.changeFileBtn') : t('dataManager.setupFileBtn')}
             </button>
             <button
               onClick={async () => {
@@ -125,28 +127,28 @@ function FileManager() {
               }}
               className="flex-1 bg-blue-600 dark:bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors font-medium"
             >
-              Load from File
+              {t('dataManager.loadFromFileBtn')}
             </button>
           </div>
         </div>
 
         <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
-          <h3 className="text-lg font-medium text-gray-700 dark:text-gray-200 mb-2">Manual Export</h3>
+          <h3 className="text-lg font-medium text-gray-700 dark:text-gray-200 mb-2">{t('dataManager.manualExportTitle')}</h3>
           <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
-            Download your data as a JSON file that you can edit directly
+            {t('dataManager.manualExportDesc')}
           </p>
           <button
             onClick={handleExport}
             className="w-full bg-indigo-600 dark:bg-purple-500 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 dark:hover:bg-purple-600 transition-colors font-medium"
           >
-            Export to JSON File
+            {t('dataManager.exportBtn')}
           </button>
         </div>
 
         <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
-          <h3 className="text-lg font-medium text-gray-700 dark:text-gray-200 mb-2">Import Data</h3>
+          <h3 className="text-lg font-medium text-gray-700 dark:text-gray-200 mb-2">{t('dataManager.importTitle')}</h3>
           <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
-            Load data from a JSON file or paste JSON directly
+            {t('dataManager.importDesc')}
           </p>
 
           <div className="mb-3">
@@ -161,13 +163,13 @@ function FileManager() {
               onClick={() => fileInputRef.current?.click()}
               className="w-full bg-gray-600 dark:bg-gray-700 text-white py-2 px-4 rounded-lg hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors font-medium mb-2"
             >
-              Select JSON File
+              {t('dataManager.selectFileBtn')}
             </button>
           </div>
 
           <div className="mb-3">
             <label htmlFor="importText" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Or paste JSON data here:
+              {t('dataManager.pasteJsonLabel')}
             </label>
             <textarea
               id="importText"
@@ -184,13 +186,13 @@ function FileManager() {
               onClick={() => handleImport()}
               className="flex-1 bg-green-600 dark:bg-green-700 text-white py-2 px-4 rounded-lg hover:bg-green-700 dark:hover:bg-green-600 transition-colors font-medium"
             >
-              Import Data
+              {t('dataManager.importBtn')}
             </button>
             <button
               onClick={handleClear}
               className="flex-1 bg-red-600 dark:bg-red-700 text-white py-2 px-4 rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors font-medium"
             >
-              Clear All Data
+              {t('dataManager.clearDataBtn')}
             </button>
           </div>
 
@@ -202,15 +204,15 @@ function FileManager() {
 
           {importSuccess && (
             <div className="mt-2 p-3 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded-lg">
-              <p className="text-sm text-green-600 dark:text-green-400">Data imported successfully!</p>
+              <p className="text-sm text-green-600 dark:text-green-400">{t('dataManager.importSuccess')}</p>
             </div>
           )}
         </div>
 
         <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
-          <h3 className="text-lg font-medium text-gray-700 dark:text-gray-200 mb-2">Data Format</h3>
+          <h3 className="text-lg font-medium text-gray-700 dark:text-gray-200 mb-2">{t('dataManager.formatTitle')}</h3>
           <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">
-            Your JSON file should follow this structure:
+            {t('dataManager.formatDesc')}
           </p>
           <pre className="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-300 p-3 rounded text-xs overflow-x-auto border dark:border-gray-700">
             {`{

@@ -1,7 +1,9 @@
 import { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useHealthData } from '../context/HealthDataContext'
 
 function HistoryView() {
+  const { t } = useTranslation();
   const { moodEntries, exerciseEntries, deleteMoodEntry, deleteExerciseEntry } = useHealthData()
 
   const sortedEntries = useMemo(() => {
@@ -25,11 +27,11 @@ function HistoryView() {
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-      <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-6">Mood History</h2>
+      <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-6">{t('history.title')}</h2>
 
       {Object.keys(groupedByDate).length === 0 ? (
         <p className="text-gray-500 dark:text-gray-400 text-center py-8">
-          No history yet. Start logging your mood to see it here.
+          {t('history.noHistory')}
         </p>
       ) : (
         <div className="space-y-6">
@@ -48,7 +50,7 @@ function HistoryView() {
                         {entry.entryType === 'mood' ? (
                           <>
                             <span className="font-medium text-gray-800 dark:text-gray-100">
-                              Mood: {entry.mood}
+                              {t('history.moodLabel')}: {entry.mood}
                             </span>
                             <span className="text-gray-500 dark:text-gray-400 text-sm ml-2">
                               • {entry.time}
@@ -62,11 +64,11 @@ function HistoryView() {
                         ) : (
                           <>
                             <span className="font-medium text-gray-800 dark:text-gray-100">
-                              Exercise: {entry.type} ({entry.duration} min)
+                              {t('history.exerciseLabel')}: {t(`exercise.types.${entry.type}`)} ({entry.duration} {t('exercise.min')})
                             </span>
                             {entry.calories && (
                               <span className="text-gray-600 dark:text-gray-300 text-sm ml-2">
-                                | {entry.calories} kcal
+                                | {entry.calories} {t('exercise.kcal')}
                               </span>
                             )}
                             <span className="text-gray-500 dark:text-gray-400 text-sm ml-2">
@@ -78,15 +80,15 @@ function HistoryView() {
                       <button
                         onClick={() => {
                           if (entry.entryType === 'mood') {
-                            if (window.confirm('Delete this mood entry?')) deleteMoodEntry(entry.id)
+                            if (window.confirm(t('mood.deleteConfirm'))) deleteMoodEntry(entry.id)
                           } else {
-                            if (window.confirm('Delete this exercise entry?')) deleteExerciseEntry(entry.id)
+                            if (window.confirm(t('exercise.deleteConfirm'))) deleteExerciseEntry(entry.id)
                           }
                         }}
                         className="text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 font-medium text-sm ml-4 px-2 py-1 rounded hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors"
-                        title="Delete this entry"
+                        title={t('common.delete')}
                       >
-                        Delete
+                        {t('common.delete')}
                       </button>
                     </div>
                   ))}

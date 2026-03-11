@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 import { HealthDataProvider } from './context/HealthDataContext'
 import MoodTracker from './modules/MoodTracker'
 import ExerciseTracker from './modules/ExerciseTracker'
@@ -9,6 +10,7 @@ import HistoryView from './components/HistoryView'
 import FileManager from './components/FileManager'
 
 function App() {
+  const { t, i18n } = useTranslation();
   const [activeTab, setActiveTab] = useState('dashboard')
   const [isDarkMode, setIsDarkMode] = useState(() => {
     return localStorage.getItem('theme') === 'dark';
@@ -31,18 +33,28 @@ function App() {
           <header className="mb-8 flex justify-between items-start">
             <div>
               <h1 className="text-4xl font-bold text-gray-800 dark:text-white mb-2 transition-colors">
-                Mood Tracking App
+                {t('app.title')}
               </h1>
               <p className="text-gray-600 dark:text-gray-300 transition-colors">
-                Track how you feel over time with a simple 1–5 mood scale
+                {t('app.subtitle')}
               </p>
             </div>
-            <button
-              onClick={() => setIsDarkMode(!isDarkMode)}
-              className="px-4 py-2 bg-white dark:bg-gray-800 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-600 rounded-md shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition"
-            >
-              {isDarkMode ? 'Light Mode' : 'Dark Mode'}
-            </button>
+            <div className="flex gap-2">
+              <select
+                className="px-3 py-2 bg-white dark:bg-gray-800 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-600 rounded-md shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition outline-none"
+                value={i18n.language}
+                onChange={(e) => i18n.changeLanguage(e.target.value)}
+              >
+                <option value="en">{t('app.english')}</option>
+                <option value="ja">{t('app.japanese')}</option>
+              </select>
+              <button
+                onClick={() => setIsDarkMode(!isDarkMode)}
+                className="px-4 py-2 bg-white dark:bg-gray-800 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-600 rounded-md shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition"
+              >
+                {isDarkMode ? t('app.lightMode') : t('app.darkMode')}
+              </button>
+            </div>
           </header>
 
           <div className="mb-6 border-b border-gray-200">
@@ -54,7 +66,7 @@ function App() {
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                   }`}
               >
-                Dashboard
+                {t('nav.dashboard')}
               </button>
               <button
                 onClick={() => setActiveTab('history')}
@@ -63,7 +75,7 @@ function App() {
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                   }`}
               >
-                History
+                {t('nav.history')}
               </button>
               <button
                 onClick={() => setActiveTab('exercise')}
@@ -72,7 +84,7 @@ function App() {
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                   }`}
               >
-                Exercise
+                {t('nav.exercise')}
               </button>
               <button
                 onClick={() => setActiveTab('data')}
@@ -81,7 +93,7 @@ function App() {
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                   }`}
               >
-                Data Management
+                {t('nav.dataManagement')}
               </button>
             </nav>
           </div>

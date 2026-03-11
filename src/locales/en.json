@@ -1,0 +1,110 @@
+{
+  "app": {
+    "title": "Mood Tracking App",
+    "subtitle": "Track how you feel over time with a simple 1–5 mood scale",
+    "lightMode": "Light Mode",
+    "darkMode": "Dark Mode",
+    "english": "English",
+    "japanese": "日本語"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "history": "History",
+    "exercise": "Exercise",
+    "dataManagement": "Data Management"
+  },
+  "common": {
+    "delete": "Delete",
+    "on": "on",
+    "at": "at"
+  },
+  "mood": {
+    "title": "Mood Tracker",
+    "description": "Select how you're feeling and then submit. Date and time are recorded automatically.",
+    "labels": {
+      "1": "Very Low",
+      "2": "Low",
+      "3": "Neutral",
+      "4": "Good",
+      "5": "Excellent"
+    },
+    "notePlaceholder": "Add an optional note about how you're feeling...",
+    "saveButton": "Save how I feel",
+    "lastRecorded": "Last recorded mood:",
+    "noMoods": "No moods logged yet. Choose how you feel to get started.",
+    "deleteConfirm": "Delete this mood entry?",
+    "moodLabel": "Mood"
+  },
+  "exercise": {
+    "title": "Exercise Tracker",
+    "description": "Log your workouts to keep track of your physical activity.",
+    "typeLabel": "Exercise Type",
+    "types": {
+      "Running": "Running",
+      "Walking": "Walking",
+      "Cycling": "Cycling",
+      "Weightlifting": "Weightlifting",
+      "Yoga": "Yoga",
+      "Swimming": "Swimming",
+      "Other": "Other"
+    },
+    "durationLabel": "Duration (min)",
+    "caloriesLabel": "Calories (optional)",
+    "durationPlaceholder": "e.g. 30",
+    "caloriesPlaceholder": "e.g. 250",
+    "saveButton": "Log Workout",
+    "lastLogged": "Last logged workout:",
+    "noWorkouts": "No workouts logged yet.",
+    "deleteConfirm": "Delete this exercise entry?",
+    "min": "min",
+    "kcal": "kcal"
+  },
+  "dailyGraph": {
+    "title": "Today's Mood",
+    "noData": "No moods logged for today yet. Record how you feel to see it here.",
+    "yAxisLabel": "Mood (1–5)"
+  },
+  "weeklyGraph": {
+    "title": "Last 7 Days – Average Mood",
+    "yAxisLabel": "Average Mood (1–5)"
+  },
+  "exerciseGraph": {
+    "title": "Last 7 Days – Exercise Duration",
+    "yAxisLabel": "Duration (min)"
+  },
+  "history": {
+    "title": "History",
+    "noHistory": "No history yet. Start logging your mood to see it here.",
+    "moodLabel": "Mood",
+    "exerciseLabel": "Exercise"
+  },
+  "dataManager": {
+    "title": "Data Management",
+    "autoSaveTitle": "Auto-Save Status",
+    "autoSaveDesc": "Data is automatically saved to a file whenever you make changes.",
+    "autoSaveEnabled": "Auto-save enabled:",
+    "fileSelected": "File selected",
+    "saving": "Saving...",
+    "savedSuccess": "Saved successfully!",
+    "saveError": "Error saving to file",
+    "noFileDesc": "File will be set up automatically on first use. Your data is saved to browser storage.",
+    "changeFileBtn": "Change File Location",
+    "setupFileBtn": "Set Up File Now",
+    "loadFromFileBtn": "Load from File",
+    "manualExportTitle": "Manual Export",
+    "manualExportDesc": "Download your data as a JSON file that you can edit directly",
+    "exportBtn": "Export to JSON File",
+    "importTitle": "Import Data",
+    "importDesc": "Load data from a JSON file or paste JSON directly",
+    "selectFileBtn": "Select JSON File",
+    "pasteJsonLabel": "Or paste JSON data here:",
+    "importBtn": "Import Data",
+    "clearDataBtn": "Clear All Data",
+    "clearConfirm": "Are you sure you want to clear all data? This cannot be undone.",
+    "errorNoData": "Please provide JSON data",
+    "errorInvalidData": "Invalid data format. Please check your JSON structure.",
+    "importSuccess": "Data imported successfully!",
+    "formatTitle": "Data Format",
+    "formatDesc": "Your JSON file should follow this structure:"
+  }
+}

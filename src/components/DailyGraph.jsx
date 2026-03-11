@@ -1,9 +1,11 @@
 import { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import { useHealthData } from '../context/HealthDataContext'
 import { getTodayFormatted } from '../utils/helpers'
 
 function DailyGraph() {
+  const { t } = useTranslation();
   const { moodEntries } = useHealthData()
 
   const dailyData = useMemo(() => {
@@ -37,12 +39,12 @@ function DailyGraph() {
 
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-      <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">Today&apos;s Mood</h3>
+      <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">{t('dailyGraph.title')}</h3>
       <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">{todayStr}</p>
       {!hasTodayData && (
         <div className="mb-4 p-3 bg-yellow-50 dark:bg-yellow-900/40 border border-yellow-200 dark:border-yellow-800 rounded-lg">
           <p className="text-sm text-yellow-700 dark:text-yellow-200">
-            No moods logged for today yet. Record how you feel to see it here.
+            {t('dailyGraph.noData')}
           </p>
         </div>
       )}
@@ -52,7 +54,7 @@ function DailyGraph() {
           <XAxis dataKey="time" className="text-gray-600 dark:text-gray-400" />
           <YAxis domain={[1, 5]} ticks={[1, 2, 3, 4, 5]} className="text-gray-600 dark:text-gray-400" />
           <Tooltip wrapperClassName="dark:!bg-gray-800 dark:!text-gray-100 dark:!border-gray-700" />
-          <Line type="monotone" dataKey="mood" className="stroke-indigo-500 dark:stroke-purple-400" fill="none" strokeWidth={2} name="Mood (1–5)" />
+          <Line type="monotone" dataKey="mood" className="stroke-indigo-500 dark:stroke-purple-400" fill="none" strokeWidth={2} name={t('dailyGraph.yAxisLabel')} />
         </LineChart>
       </ResponsiveContainer>
     </div>

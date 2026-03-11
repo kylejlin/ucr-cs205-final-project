@@ -1,0 +1,110 @@
+{
+  "app": {
+    "title": "気分トラッキングアプリ",
+    "subtitle": "シンプルな1〜5の気分スケールで気分の変化を記録します",
+    "lightMode": "ライトモード",
+    "darkMode": "ダークモード",
+    "english": "English",
+    "japanese": "日本語"
+  },
+  "nav": {
+    "dashboard": "ダッシュボード",
+    "history": "履歴",
+    "exercise": "運動",
+    "dataManagement": "データ管理"
+  },
+  "common": {
+    "delete": "削除",
+    "on": "日付:",
+    "at": "時間:"
+  },
+  "mood": {
+    "title": "気分トラッカー",
+    "description": "今の気分を選択して送信してください。日付と時刻は自動的に記録されます。",
+    "labels": {
+      "1": "とても低い",
+      "2": "低い",
+      "3": "普通",
+      "4": "良い",
+      "5": "とても良い"
+    },
+    "notePlaceholder": "今の気分についてメモを追加（任意）...",
+    "saveButton": "気分を保存する",
+    "lastRecorded": "最後に記録された気分:",
+    "noMoods": "まだ気分の記録はありません。気分を選択して始めてください。",
+    "deleteConfirm": "この気分の記録を削除しますか？",
+    "moodLabel": "気分"
+  },
+  "exercise": {
+    "title": "運動トラッカー",
+    "description": "運動を記録して、身体活動をトラッキングしましょう。",
+    "typeLabel": "運動の種類",
+    "types": {
+      "Running": "ランニング",
+      "Walking": "ウォーキング",
+      "Cycling": "サイクリング",
+      "Weightlifting": "筋力トレーニング",
+      "Yoga": "ヨガ",
+      "Swimming": "水泳",
+      "Other": "その他"
+    },
+    "durationLabel": "時間 (分)",
+    "caloriesLabel": "カロリー (任意)",
+    "durationPlaceholder": "例: 30",
+    "caloriesPlaceholder": "例: 250",
+    "saveButton": "運動を記録する",
+    "lastLogged": "最後に記録された運動:",
+    "noWorkouts": "まだ運動の記録はありません。",
+    "deleteConfirm": "この運動の記録を削除しますか？",
+    "min": "分",
+    "kcal": "kcal"
+  },
+  "dailyGraph": {
+    "title": "今日の気分",
+    "noData": "今日の気分の記録はまだありません。気分を記録してここに表示しましょう。",
+    "yAxisLabel": "気分 (1〜5)"
+  },
+  "weeklyGraph": {
+    "title": "過去7日間 – 平均気分",
+    "yAxisLabel": "平均気分 (1〜5)"
+  },
+  "exerciseGraph": {
+    "title": "過去7日間 – 運動時間",
+    "yAxisLabel": "時間 (分)"
+  },
+  "history": {
+    "title": "履歴",
+    "noHistory": "まだ履歴はありません。記録を始めて確認しましょう。",
+    "moodLabel": "気分",
+    "exerciseLabel": "運動"
+  },
+  "dataManager": {
+    "title": "データ管理",
+    "autoSaveTitle": "自動保存ステータス",
+    "autoSaveDesc": "変更を加えると、データは自動的にファイルに保存されます。",
+    "autoSaveEnabled": "自動保存が有効:",
+    "fileSelected": "ファイル選択済み",
+    "saving": "保存中...",
+    "savedSuccess": "正常に保存されました！",
+    "saveError": "ファイルへの保存エラー",
+    "noFileDesc": "ファイルは初回使用時に自動的に設定されます。データはブラウザのストレージに保存されます。",
+    "changeFileBtn": "ファイルの場所を変更",
+    "setupFileBtn": "今すぐファイルを設定",
+    "loadFromFileBtn": "ファイルから読み込み",
+    "manualExportTitle": "手動エクスポート",
+    "manualExportDesc": "直接編集できるJSONファイルとしてデータをダウンロードします",
+    "exportBtn": "JSONファイルにエクスポート",
+    "importTitle": "データインポート",
+    "importDesc": "JSONファイルからデータを読み込むか、JSONを直接貼り付けます",
+    "selectFileBtn": "JSONファイルを選択",
+    "pasteJsonLabel": "またはここにJSONデータを貼り付け:",
+    "importBtn": "データをインポート",
+    "clearDataBtn": "すべてのデータをクリア",
+    "clearConfirm": "すべてのデータをクリアしてもよろしいですか？この操作は元に戻せません。",
+    "errorNoData": "JSONデータを提供してください",
+    "errorInvalidData": "無効なデータ形式です。JSONの構造を確認してください。",
+    "importSuccess": "データが正常にインポートされました！",
+    "formatTitle": "データ形式",
+    "formatDesc": "JSONファイルは以下の構造に従う必要があります:"
+  }
+}
