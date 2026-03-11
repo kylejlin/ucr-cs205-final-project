@@ -7,6 +7,7 @@ import FoodTracker from './modules/FoodTracker'
 import DailyGraph from './components/DailyGraph'
 import WeeklyGraph from './components/WeeklyGraph'
 import ExerciseGraph from './components/ExerciseGraph'
+import CalorieGraph from './components/CalorieGraph'
 import HistoryView from './components/HistoryView'
 import FileManager from './components/FileManager'
 
@@ -115,6 +116,7 @@ function App() {
                 <DailyGraph />
                 <WeeklyGraph />
                 <ExerciseGraph />
+                <CalorieGraph />
               </div>
             </div>
           )}

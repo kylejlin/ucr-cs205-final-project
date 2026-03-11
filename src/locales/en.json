@@ -93,6 +93,10 @@
     "title": "Last 7 Days – Exercise Duration",
     "yAxisLabel": "Duration (min)"
   },
+  "calorieGraph": {
+    "title": "Last 7 Days – Calorie Intake",
+    "yAxisLabel": "Calories (kcal)"
+  },
   "history": {
     "title": "History",
     "noHistory": "No history yet. Start logging your mood to see it here.",

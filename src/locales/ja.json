@@ -93,6 +93,10 @@
     "title": "過去7日間 – 運動時間",
     "yAxisLabel": "時間 (分)"
   },
+  "calorieGraph": {
+    "title": "過去7日間 – 摂取カロリー",
+    "yAxisLabel": "カロリー (kcal)"
+  },
   "history": {
     "title": "履歴",
     "noHistory": "まだ履歴はありません。記録を始めて確認しましょう。",
