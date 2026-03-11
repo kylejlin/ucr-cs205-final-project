@@ -74,7 +74,7 @@ function ExerciseTracker() {
         <div className="flex gap-4">
           <div className="flex-1">
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Duration (mins)
+              Duration (min)
             </label>
             <input
               type="number"
@@ -117,7 +117,7 @@ function ExerciseTracker() {
         <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/30 rounded-lg">
           <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">Last logged workout:</p>
           <p className="text-lg font-semibold text-green-700 dark:text-green-300">
-            {latestEntry.type} – {latestEntry.duration} mins
+            {latestEntry.type} – {latestEntry.duration} min
           </p>
           <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
             {latestEntry.date} at {latestEntry.time} {latestEntry.calories ? `• ${latestEntry.calories} kcal` : ''}
@@ -140,7 +140,7 @@ function ExerciseTracker() {
               >
                 <div>
                   <span className="font-medium text-gray-800 dark:text-gray-100">
-                    {entry.type} ({entry.duration}m)
+                    {entry.type} ({entry.duration} min)
                   </span>
                   {entry.calories && (
                     <span className="text-gray-600 dark:text-gray-300 text-sm ml-2">
