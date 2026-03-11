@@ -4,6 +4,7 @@ import MoodTracker from './modules/MoodTracker'
 import ExerciseTracker from './modules/ExerciseTracker'
 import DailyGraph from './components/DailyGraph'
 import WeeklyGraph from './components/WeeklyGraph'
+import ExerciseGraph from './components/ExerciseGraph'
 import HistoryView from './components/HistoryView'
 import FileManager from './components/FileManager'
 
@@ -91,6 +92,7 @@ function App() {
                 <MoodTracker />
                 <DailyGraph />
                 <WeeklyGraph />
+                <ExerciseGraph />
               </div>
             </div>
           )}
