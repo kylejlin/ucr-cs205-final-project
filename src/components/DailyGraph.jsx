@@ -38,23 +38,23 @@ function DailyGraph() {
   const hasTodayData = dailyData.length > 0
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-      <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-2">{t('dailyGraph.title')}</h3>
-      <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">{todayStr}</p>
+    <div className="bg-surface rounded-lg shadow-lg p-6">
+      <h3 className="text-xl font-semibold text-text-main mb-2">{t('dailyGraph.title')}</h3>
+      <p className="text-sm text-text-muted mb-4">{todayStr}</p>
       {!hasTodayData && (
-        <div className="mb-4 p-3 bg-yellow-50 dark:bg-yellow-900/40 border border-yellow-200 dark:border-yellow-800 rounded-lg">
-          <p className="text-sm text-yellow-700 dark:text-yellow-200">
+        <div className="mb-4 p-3 bg-surface border border-accent border border-accent rounded-lg">
+          <p className="text-sm text-accent">
             {t('dailyGraph.noData')}
           </p>
         </div>
       )}
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={dailyData}>
-          <CartesianGrid strokeDasharray="3 3" className="stroke-gray-200 dark:stroke-gray-700" />
-          <XAxis dataKey="time" className="text-gray-600 dark:text-gray-400" />
-          <YAxis domain={[1, 5]} ticks={[1, 2, 3, 4, 5]} className="text-gray-600 dark:text-gray-400" />
-          <Tooltip wrapperClassName="dark:!bg-gray-800 dark:!text-gray-100 dark:!border-gray-700" />
-          <Line type="monotone" dataKey="mood" className="stroke-indigo-500 dark:stroke-purple-400" fill="none" strokeWidth={2} name={t('dailyGraph.yAxisLabel')} />
+          <CartesianGrid strokeDasharray="3 3" className="stroke-border-main" />
+          <XAxis dataKey="time" className="text-text-muted" />
+          <YAxis domain={[1, 5]} ticks={[1, 2, 3, 4, 5]} className="text-text-muted" />
+          <Tooltip wrapperClassName="!bg-surface !text-text-main !border-border-main" />
+          <Line type="monotone" dataKey="mood" className="stroke-accent" fill="none" strokeWidth={2} name={t('dailyGraph.yAxisLabel')} />
         </LineChart>
       </ResponsiveContainer>
     </div>

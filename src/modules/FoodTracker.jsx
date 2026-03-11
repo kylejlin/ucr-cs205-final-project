@@ -44,23 +44,23 @@ function FoodTracker() {
     : null
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-      <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-4">
+    <div className="bg-surface rounded-lg shadow-lg p-6">
+      <h2 className="text-2xl font-semibold text-text-main mb-4">
         {t('food.title')}
       </h2>
-      <p className="text-gray-600 dark:text-gray-400 mb-4">
+      <p className="text-text-muted mb-4">
         {t('food.description')}
       </p>
 
       <form onSubmit={handleSubmit} className="mb-6 space-y-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label className="block text-sm font-medium text-text-main mb-1">
             {t('food.mealTypeLabel')}
           </label>
           <select
             value={selectedType}
             onChange={(e) => setSelectedType(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 dark:focus:ring-orange-400 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+            className="w-full px-4 py-2 border border-border-main rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent bg-surface text-text-main"
           >
             {MEAL_TYPES.map((type) => (
               <option key={type} value={type}>
@@ -72,7 +72,7 @@ function FoodTracker() {
 
         <div className="flex gap-4">
           <div className="flex-1">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-text-main mb-1">
               {t('food.foodNameLabel')}
             </label>
             <input
@@ -80,12 +80,12 @@ function FoodTracker() {
               value={foodName}
               onChange={(e) => setFoodName(e.target.value)}
               placeholder={t('food.foodNamePlaceholder')}
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 dark:focus:ring-orange-400 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              className="w-full px-4 py-2 border border-border-main rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent bg-surface text-text-main"
               required
             />
           </div>
           <div className="flex-1">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-text-main mb-1">
               {t('food.caloriesLabel')}
             </label>
             <input
@@ -94,7 +94,7 @@ function FoodTracker() {
               value={calories}
               onChange={(e) => setCalories(e.target.value)}
               placeholder={t('food.caloriesPlaceholder')}
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-orange-500 dark:focus:ring-orange-400 focus:border-transparent bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+              className="w-full px-4 py-2 border border-border-main rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent bg-surface text-text-main"
             />
           </div>
         </div>
@@ -103,8 +103,8 @@ function FoodTracker() {
           type="submit"
           disabled={!foodName.trim()}
           className={`w-full py-2 px-4 rounded-lg font-medium transition-colors ${foodName.trim()
-              ? 'bg-orange-600 dark:bg-orange-500 text-white hover:bg-orange-700 dark:hover:bg-orange-600'
-              : 'bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
+              ? 'bg-accent text-white hover:bg-accent-hover'
+              : 'bg-gray-200  text-text-muted cursor-not-allowed'
             }`}
         >
           {t('food.saveButton')}
@@ -112,12 +112,12 @@ function FoodTracker() {
       </form>
 
       {latestEntry && (
-        <div className="mb-6 p-4 bg-orange-50 dark:bg-orange-900/30 rounded-lg">
-          <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">{t('food.lastLogged')}</p>
-          <p className="text-lg font-semibold text-orange-700 dark:text-orange-300">
+        <div className="mb-6 p-4 bg-surface border border-accent rounded-lg">
+          <p className="text-sm text-text-muted mb-1">{t('food.lastLogged')}</p>
+          <p className="text-lg font-semibold text-accent">
             {t(`food.mealTypes.${latestEntry.mealType}`)} – {latestEntry.foodName}
           </p>
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+          <p className="text-xs text-text-muted mt-1">
             {latestEntry.date} {t('common.at')} {latestEntry.time} {latestEntry.calories ? `• ${latestEntry.calories} ${t('food.kcal')}` : ''}
           </p>
         </div>
@@ -125,7 +125,7 @@ function FoodTracker() {
 
       <div className="space-y-2 max-h-64 overflow-y-auto">
         {!foodEntries || foodEntries.length === 0 ? (
-          <p className="text-gray-500 dark:text-gray-400 text-center py-4">
+          <p className="text-text-muted text-center py-4">
             {t('food.noFoods')}
           </p>
         ) : (
@@ -134,21 +134,21 @@ function FoodTracker() {
             .map((entry) => (
               <div
                 key={entry.id}
-                className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                className="flex justify-between items-center p-3 bg-surface-hover rounded-lg hover:bg-surface-hover transition-colors"
               >
                 <div>
-                  <span className="font-medium text-gray-800 dark:text-gray-100">
+                  <span className="font-medium text-text-main">
                     {t(`food.mealTypes.${entry.mealType}`)}
                   </span>
-                  <span className="text-gray-700 dark:text-gray-200 ml-2">
+                  <span className="text-text-main ml-2">
                     {entry.foodName}
                   </span>
                   {entry.calories && (
-                    <span className="text-gray-600 dark:text-gray-300 text-sm ml-2">
+                    <span className="text-text-muted text-sm ml-2">
                       | {entry.calories} {t('food.kcal')}
                     </span>
                   )}
-                  <span className="text-gray-500 dark:text-gray-400 text-sm ml-2">
+                  <span className="text-text-muted text-sm ml-2">
                     • {entry.date}
                   </span>
                 </div>
@@ -158,7 +158,7 @@ function FoodTracker() {
                       deleteFoodEntry(entry.id)
                     }
                   }}
-                  className="text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 font-medium text-sm px-2 py-1 rounded hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors"
+                  className="text-red-500 hover:text-red-600 font-medium text-sm px-2 py-1 rounded hover:bg-red-50 transition-colors"
                   title={t('common.delete')}
                 >
                   {t('common.delete')}

@@ -31,15 +31,15 @@ function CalorieGraph() {
   }, [foodEntries, i18n.language])
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-      <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-4">{t('calorieGraph.title')}</h3>
+    <div className="bg-surface rounded-lg shadow-lg p-6">
+      <h3 className="text-xl font-semibold text-text-main mb-4">{t('calorieGraph.title')}</h3>
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={weeklyData}>
-          <CartesianGrid strokeDasharray="3 3" className="stroke-gray-200 dark:stroke-gray-700" />
-          <XAxis dataKey="day" className="text-gray-600 dark:text-gray-400" />
-          <YAxis className="text-gray-600 dark:text-gray-400" />
-          <Tooltip cursor={{ fill: 'rgba(156, 163, 175, 0.2)' }} wrapperClassName="dark:!bg-gray-800 dark:!text-gray-100 dark:!border-gray-700" />
-          <Bar dataKey="totalCalories" className="fill-orange-500 dark:fill-orange-400" name={t('calorieGraph.yAxisLabel')} />
+          <CartesianGrid strokeDasharray="3 3" className="stroke-border-main" />
+          <XAxis dataKey="day" className="text-text-muted" />
+          <YAxis className="text-text-muted" />
+          <Tooltip cursor={{ fill: 'rgba(156, 163, 175, 0.2)' }} wrapperClassName="!bg-surface !text-text-main !border-border-main" />
+          <Bar dataKey="totalCalories" className="fill-accent" name={t('calorieGraph.yAxisLabel')} />
         </BarChart>
       </ResponsiveContainer>
     </div>

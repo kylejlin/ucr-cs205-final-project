@@ -10,3 +10,80 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+:root {
+  --color-page-from: #eff6ff; /* blue-50 */
+  --color-page-to: #e0e7ff; /* indigo-100 */
+  --color-surface: #ffffff;
+  --color-surface-hover: #f9fafb; /* gray-50 */
+  --color-text-main: #1f2937; /* gray-800 */
+  --color-text-muted: #4b5563; /* gray-600 */
+  --color-border-main: #e5e7eb; /* gray-200 */
+  --color-accent: #4f46e5; /* indigo-600 */
+  --color-accent-hover: #4338ca; /* indigo-700 */
+}
+
+/* Dark Mode */
+.dark, [data-theme="dark"] {
+  --color-page-from: #111827; /* gray-900 */
+  --color-page-to: #1f2937; /* gray-800 */
+  --color-surface: #1f2937; /* gray-800 */
+  --color-surface-hover: #374151; /* gray-700 */
+  --color-text-main: #ffffff; /* white */
+  --color-text-muted: #d1d5db; /* gray-300 */
+  --color-border-main: #4b5563; /* gray-600 */
+  --color-accent: #818cf8; /* indigo-400 */
+  --color-accent-hover: #6366f1; /* indigo-500 */
+}
+
+/* Coastal Breeze */
+[data-theme="coastal"] {
+  --color-page-from: #e0f2fe; /* sky-100 */
+  --color-page-to: #bae6fd; /* sky-200 */
+  --color-surface: #ffffff;
+  --color-surface-hover: #f0f9ff; /* sky-50 */
+  --color-text-main: #0c4a6e; /* sky-900 */
+  --color-text-muted: #0284c7; /* sky-600 */
+  --color-border-main: #7dd3fc; /* sky-300 */
+  --color-accent: #0ea5e9; /* sky-500 */
+  --color-accent-hover: #0284c7; /* sky-600 */
+}
+
+/* Sunset Glow */
+[data-theme="sunset"] {
+  --color-page-from: #ffedd5; /* orange-100 */
+  --color-page-to: #fed7aa; /* orange-200 */
+  --color-surface: #ffffff;
+  --color-surface-hover: #fff7ed; /* orange-50 */
+  --color-text-main: #7c2d12; /* orange-900 */
+  --color-text-muted: #ea580c; /* orange-600 */
+  --color-border-main: #fdba74; /* orange-300 */
+  --color-accent: #f97316; /* orange-500 */
+  --color-accent-hover: #ea580c; /* orange-600 */
+}
+
+/* Enchanted Forest */
+[data-theme="forest"] {
+  --color-page-from: #dcfce7; /* green-100 */
+  --color-page-to: #bbf7d0; /* green-200 */
+  --color-surface: #ffffff;
+  --color-surface-hover: #f0fdf4; /* green-50 */
+  --color-text-main: #14532d; /* green-900 */
+  --color-text-muted: #16a34a; /* green-600 */
+  --color-border-main: #86efac; /* green-300 */
+  --color-accent: #22c55e; /* green-500 */
+  --color-accent-hover: #16a34a; /* green-600 */
+}
+
+/* Lavender Dream */
+[data-theme="lavender"] {
+  --color-page-from: #f3e8ff; /* purple-100 */
+  --color-page-to: #e9d5ff; /* purple-200 */
+  --color-surface: #ffffff;
+  --color-surface-hover: #faf5ff; /* purple-50 */
+  --color-text-main: #581c87; /* purple-900 */
+  --color-text-muted: #9333ea; /* purple-600 */
+  --color-border-main: #d8b4fe; /* purple-300 */
+  --color-accent: #a855f7; /* purple-500 */
+  --color-accent-hover: #9333ea; /* purple-600 */
+}

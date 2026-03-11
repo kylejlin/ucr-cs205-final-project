@@ -31,15 +31,15 @@ function ExerciseGraph() {
   }, [exerciseEntries, i18n.language])
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-      <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-4">{t('exerciseGraph.title')}</h3>
+    <div className="bg-surface rounded-lg shadow-lg p-6">
+      <h3 className="text-xl font-semibold text-text-main mb-4">{t('exerciseGraph.title')}</h3>
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={weeklyData}>
-          <CartesianGrid strokeDasharray="3 3" className="stroke-gray-200 dark:stroke-gray-700" />
-          <XAxis dataKey="day" className="text-gray-600 dark:text-gray-400" />
-          <YAxis className="text-gray-600 dark:text-gray-400" />
-          <Tooltip cursor={{ fill: 'rgba(156, 163, 175, 0.2)' }} wrapperClassName="dark:!bg-gray-800 dark:!text-gray-100 dark:!border-gray-700" />
-          <Bar dataKey="totalDuration" className="fill-green-500 dark:fill-green-400" name={t('exerciseGraph.yAxisLabel')} />
+          <CartesianGrid strokeDasharray="3 3" className="stroke-border-main" />
+          <XAxis dataKey="day" className="text-text-muted" />
+          <YAxis className="text-text-muted" />
+          <Tooltip cursor={{ fill: 'rgba(156, 163, 175, 0.2)' }} wrapperClassName="!bg-surface !text-text-main !border-border-main" />
+          <Bar dataKey="totalDuration" className="fill-accent" name={t('exerciseGraph.yAxisLabel')} />
         </BarChart>
       </ResponsiveContainer>
     </div>

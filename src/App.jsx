@@ -15,48 +15,57 @@ import FileManager from './components/FileManager'
 function App() {
   const { t, i18n } = useTranslation();
   const [activeTab, setActiveTab] = useState('dashboard')
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    return localStorage.getItem('theme') === 'dark';
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('theme') || 'light';
   });
 
   useEffect(() => {
-    if (isDarkMode) {
+    document.documentElement.classList.remove('dark');
+    document.documentElement.removeAttribute('data-theme');
+    
+    if (theme === 'dark') {
       document.documentElement.classList.add('dark');
-      localStorage.setItem('theme', 'dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-      localStorage.setItem('theme', 'light');
+    } else if (theme !== 'light') {
+      document.documentElement.setAttribute('data-theme', theme);
     }
-  }, [isDarkMode]);
+    
+    localStorage.setItem('theme', theme);
+  }, [theme]);
 
   return (
     <HealthDataProvider>
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-900 dark:to-gray-800 transition-colors duration-200">
+      <div className="min-h-screen bg-gradient-to-br from-page-from to-page-to transition-colors duration-200">
         <div className="container mx-auto px-4 py-8 max-w-7xl">
           <header className="mb-8 flex justify-between items-start">
             <div>
-              <h1 className="text-4xl font-bold text-gray-800 dark:text-white mb-2 transition-colors">
+              <h1 className="text-4xl font-bold text-text-main mb-2 transition-colors">
                 {t('app.title')}
               </h1>
-              <p className="text-gray-600 dark:text-gray-300 transition-colors">
+              <p className="text-text-muted transition-colors">
                 {t('app.subtitle')}
               </p>
             </div>
             <div className="flex gap-2">
               <select
-                className="px-3 py-2 bg-white dark:bg-gray-800 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-600 rounded-md shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition outline-none"
+                className="px-3 py-2 bg-surface text-text-main border border-border-main rounded-md shadow-sm hover:bg-surface-hover transition outline-none"
                 value={i18n.language}
                 onChange={(e) => i18n.changeLanguage(e.target.value)}
               >
                 <option value="en">{t('app.english')}</option>
                 <option value="ja">{t('app.japanese')}</option>
               </select>
-              <button
-                onClick={() => setIsDarkMode(!isDarkMode)}
-                className="px-4 py-2 bg-white dark:bg-gray-800 text-gray-800 dark:text-white border border-gray-300 dark:border-gray-600 rounded-md shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition"
+              <select
+                className="px-3 py-2 bg-surface text-text-main border border-border-main rounded-md shadow-sm hover:bg-surface-hover transition outline-none"
+                value={theme}
+                onChange={(e) => setTheme(e.target.value)}
               >
-                {isDarkMode ? t('app.lightMode') : t('app.darkMode')}
-              </button>
+                <option value="light">{t('app.themes.light')}</option>
+                <option value="dark">{t('app.themes.dark')}</option>
+                <option value="coastal">{t('app.themes.coastal')}</option>
+                <option value="sunset">{t('app.themes.sunset')}</option>
+                <option value="forest">{t('app.themes.forest')}</option>
+                <option value="lavender">{t('app.themes.lavender')}</option>
+              </select>
             </div>
           </header>
 
@@ -65,7 +74,7 @@ function App() {
               <button
                 onClick={() => setActiveTab('dashboard')}
                 className={`py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'dashboard'
-                    ? 'border-indigo-500 text-indigo-600'
+                    ? 'border-indigo-500 text-accent'
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                   }`}
               >
@@ -74,7 +83,7 @@ function App() {
               <button
                 onClick={() => setActiveTab('history')}
                 className={`py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'history'
-                    ? 'border-indigo-500 text-indigo-600'
+                    ? 'border-indigo-500 text-accent'
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                   }`}
               >
@@ -83,7 +92,7 @@ function App() {
               <button
                 onClick={() => setActiveTab('exercise')}
                 className={`py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'exercise'
-                    ? 'border-indigo-500 text-indigo-600'
+                    ? 'border-indigo-500 text-accent'
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                   }`}
               >
@@ -92,7 +101,7 @@ function App() {
               <button
                 onClick={() => setActiveTab('food')}
                 className={`py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'food'
-                    ? 'border-indigo-500 text-indigo-600'
+                    ? 'border-indigo-500 text-accent'
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                   }`}
               >
@@ -101,7 +110,7 @@ function App() {
               <button
                 onClick={() => setActiveTab('data')}
                 className={`py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'data'
-                    ? 'border-indigo-500 text-indigo-600'
+                    ? 'border-indigo-500 text-accent'
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                   }`}
               >

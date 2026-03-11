@@ -27,11 +27,11 @@ function HistoryView() {
   }, [sortedEntries])
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-      <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-6">{t('history.title')}</h2>
+    <div className="bg-surface rounded-lg shadow-lg p-6">
+      <h2 className="text-2xl font-semibold text-text-main mb-6">{t('history.title')}</h2>
 
       {Object.keys(groupedByDate).length === 0 ? (
-        <p className="text-gray-500 dark:text-gray-400 text-center py-8">
+        <p className="text-text-muted text-center py-8">
           {t('history.noHistory')}
         </p>
       ) : (
@@ -39,54 +39,54 @@ function HistoryView() {
           {Object.entries(groupedByDate)
             .sort((a, b) => new Date(b[0]) - new Date(a[0]))
             .map(([date, entries]) => (
-              <div key={date} className="border-b border-gray-200 dark:border-gray-700 pb-4 last:border-b-0">
-                <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-3">{date}</h3>
+              <div key={date} className="border-b border-border-main pb-4 last:border-b-0">
+                <h3 className="text-lg font-semibold text-text-main mb-3">{date}</h3>
                 <div className="space-y-2">
                   {entries.map((entry) => (
                     <div
                       key={entry.id}
-                      className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                      className="flex justify-between items-center p-3 bg-surface-hover rounded-lg hover:bg-surface-hover transition-colors"
                     >
                       <div className="flex-1">
                         {entry.entryType === 'mood' ? (
                           <>
-                            <span className="font-medium text-gray-800 dark:text-gray-100">
+                            <span className="font-medium text-text-main">
                               {t('history.moodLabel')}: {entry.mood}
                             </span>
-                            <span className="text-gray-500 dark:text-gray-400 text-sm ml-2">
+                            <span className="text-text-muted text-sm ml-2">
                               • {entry.time}
                             </span>
                             {entry.note && (
-                              <p className="text-sm mt-2 text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 p-2 rounded border border-gray-100 dark:border-gray-600 shadow-sm">
+                              <p className="text-sm mt-2 text-text-main bg-surface p-2 rounded border border-border-main shadow-sm">
                                 {entry.note}
                               </p>
                             )}
                           </>
                         ) : entry.entryType === 'exercise' ? (
                           <>
-                            <span className="font-medium text-gray-800 dark:text-gray-100">
+                            <span className="font-medium text-text-main">
                               {t('history.exerciseLabel')}: {t(`exercise.types.${entry.type}`)} ({entry.duration} {t('exercise.min')})
                             </span>
                             {entry.calories && (
-                              <span className="text-gray-600 dark:text-gray-300 text-sm ml-2">
+                              <span className="text-text-muted text-sm ml-2">
                                 | {entry.calories} {t('exercise.kcal')}
                               </span>
                             )}
-                            <span className="text-gray-500 dark:text-gray-400 text-sm ml-2">
+                            <span className="text-text-muted text-sm ml-2">
                               • {entry.time}
                             </span>
                           </>
                         ) : (
                           <>
-                            <span className="font-medium text-gray-800 dark:text-gray-100">
+                            <span className="font-medium text-text-main">
                               {t('history.foodLabel')}: {t(`food.mealTypes.${entry.mealType}`)} - {entry.foodName}
                             </span>
                             {entry.calories && (
-                              <span className="text-gray-600 dark:text-gray-300 text-sm ml-2">
+                              <span className="text-text-muted text-sm ml-2">
                                 | {entry.calories} {t('food.kcal')}
                               </span>
                             )}
-                            <span className="text-gray-500 dark:text-gray-400 text-sm ml-2">
+                            <span className="text-text-muted text-sm ml-2">
                               • {entry.time}
                             </span>
                           </>
@@ -102,7 +102,7 @@ function HistoryView() {
                             if (window.confirm(t('food.deleteConfirm'))) deleteFoodEntry(entry.id)
                           }
                         }}
-                        className="text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 font-medium text-sm ml-4 px-2 py-1 rounded hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors"
+                        className="text-red-500 hover:text-red-600 font-medium text-sm ml-4 px-2 py-1 rounded hover:bg-red-50 transition-colors"
                         title={t('common.delete')}
                       >
                         {t('common.delete')}

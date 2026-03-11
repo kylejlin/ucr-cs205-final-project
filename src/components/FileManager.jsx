@@ -71,35 +71,35 @@ function FileManager() {
   }
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-      <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-4">
+    <div className="bg-surface rounded-lg shadow-lg p-6">
+      <h2 className="text-2xl font-semibold text-text-main mb-4">
         {t('dataManager.title')}
       </h2>
 
       <div className="space-y-4">
         <div>
-          <h3 className="text-lg font-medium text-gray-700 dark:text-gray-200 mb-2">{t('dataManager.autoSaveTitle')}</h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+          <h3 className="text-lg font-medium text-text-main mb-2">{t('dataManager.autoSaveTitle')}</h3>
+          <p className="text-sm text-text-muted mb-3">
             {t('dataManager.autoSaveDesc')}
           </p>
           {fileHandle ? (
-            <div className="mb-3 p-3 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded-lg">
-              <p className="text-sm text-green-700 dark:text-green-300">
+            <div className="mb-3 p-3 bg-surface border border-accent border border-green-300 rounded-lg">
+              <p className="text-sm text-accent">
                 <strong>{t('dataManager.autoSaveEnabled')}</strong> {fileHandle.name || t('dataManager.fileSelected')}
               </p>
               {fileStatus === 'saving' && (
-                <p className="text-xs text-green-600 dark:text-green-400 mt-1">{t('dataManager.saving')}</p>
+                <p className="text-xs text-green-600 mt-1">{t('dataManager.saving')}</p>
               )}
               {fileStatus === 'saved' && (
-                <p className="text-xs text-green-600 dark:text-green-400 mt-1">{t('dataManager.savedSuccess')}</p>
+                <p className="text-xs text-green-600 mt-1">{t('dataManager.savedSuccess')}</p>
               )}
               {fileStatus === 'error' && (
-                <p className="text-xs text-red-600 dark:text-red-400 mt-1">{t('dataManager.saveError')}</p>
+                <p className="text-xs text-red-600 mt-1">{t('dataManager.saveError')}</p>
               )}
             </div>
           ) : (
-            <div className="mb-3 p-3 bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-800 rounded-lg">
-              <p className="text-sm text-blue-700 dark:text-blue-300">
+            <div className="mb-3 p-3 bg-surface border border-accent border border-blue-300 rounded-lg">
+              <p className="text-sm text-blue-600">
                 {t('dataManager.noFileDesc')}
               </p>
             </div>
@@ -113,7 +113,7 @@ function FileManager() {
                   setTimeout(() => setImportSuccess(false), 3000)
                 }
               }}
-              className="flex-1 bg-indigo-600 dark:bg-purple-500 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 dark:hover:bg-purple-600 transition-colors font-medium"
+              className="flex-1 bg-accent text-white py-2 px-4 rounded-lg hover:bg-accent-hover transition-colors font-medium"
             >
               {fileHandle ? t('dataManager.changeFileBtn') : t('dataManager.setupFileBtn')}
             </button>
@@ -125,29 +125,29 @@ function FileManager() {
                   setTimeout(() => setImportSuccess(false), 3000)
                 }
               }}
-              className="flex-1 bg-blue-600 dark:bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors font-medium"
+              className="flex-1 bg-accent text-white py-2 px-4 rounded-lg hover:bg-accent-hover transition-colors font-medium"
             >
               {t('dataManager.loadFromFileBtn')}
             </button>
           </div>
         </div>
 
-        <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
-          <h3 className="text-lg font-medium text-gray-700 dark:text-gray-200 mb-2">{t('dataManager.manualExportTitle')}</h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+        <div className="border-t border-border-main pt-4">
+          <h3 className="text-lg font-medium text-text-main mb-2">{t('dataManager.manualExportTitle')}</h3>
+          <p className="text-sm text-text-muted mb-3">
             {t('dataManager.manualExportDesc')}
           </p>
           <button
             onClick={handleExport}
-            className="w-full bg-indigo-600 dark:bg-purple-500 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 dark:hover:bg-purple-600 transition-colors font-medium"
+            className="w-full bg-accent text-white py-2 px-4 rounded-lg hover:bg-accent-hover transition-colors font-medium"
           >
             {t('dataManager.exportBtn')}
           </button>
         </div>
 
-        <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
-          <h3 className="text-lg font-medium text-gray-700 dark:text-gray-200 mb-2">{t('dataManager.importTitle')}</h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mb-3">
+        <div className="border-t border-border-main pt-4">
+          <h3 className="text-lg font-medium text-text-main mb-2">{t('dataManager.importTitle')}</h3>
+          <p className="text-sm text-text-muted mb-3">
             {t('dataManager.importDesc')}
           </p>
 
@@ -161,14 +161,14 @@ function FileManager() {
             />
             <button
               onClick={() => fileInputRef.current?.click()}
-              className="w-full bg-gray-600 dark:bg-gray-700 text-white py-2 px-4 rounded-lg hover:bg-gray-700 dark:hover:bg-gray-600 transition-colors font-medium mb-2"
+              className="w-full bg-surface-hover text-white py-2 px-4 rounded-lg hover:bg-border-main transition-colors font-medium mb-2"
             >
               {t('dataManager.selectFileBtn')}
             </button>
           </div>
 
           <div className="mb-3">
-            <label htmlFor="importText" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label htmlFor="importText" className="block text-sm font-medium text-text-main mb-1">
               {t('dataManager.pasteJsonLabel')}
             </label>
             <textarea
@@ -176,7 +176,7 @@ function FileManager() {
               value={importText}
               onChange={(e) => setImportText(e.target.value)}
               placeholder='{"moodEntries": [...], "exerciseEntries": [...] }'
-              className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 dark:focus:ring-purple-500 focus:border-transparent font-mono text-sm bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100"
+              className="w-full px-4 py-2 border border-border-main rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent font-mono text-sm bg-surface text-text-main"
               rows="8"
             />
           </div>
@@ -184,37 +184,37 @@ function FileManager() {
           <div className="flex gap-2">
             <button
               onClick={() => handleImport()}
-              className="flex-1 bg-green-600 dark:bg-green-700 text-white py-2 px-4 rounded-lg hover:bg-green-700 dark:hover:bg-green-600 transition-colors font-medium"
+              className="flex-1 bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-accent-hover transition-colors font-medium"
             >
               {t('dataManager.importBtn')}
             </button>
             <button
               onClick={handleClear}
-              className="flex-1 bg-red-600 dark:bg-red-700 text-white py-2 px-4 rounded-lg hover:bg-red-700 dark:hover:bg-red-600 transition-colors font-medium"
+              className="flex-1 bg-red-600 text-white py-2 px-4 rounded-lg hover:bg-red-700 transition-colors font-medium"
             >
               {t('dataManager.clearDataBtn')}
             </button>
           </div>
 
           {importError && (
-            <div className="mt-2 p-3 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg">
-              <p className="text-sm text-red-600 dark:text-red-400">{importError}</p>
+            <div className="mt-2 p-3 bg-red-50 border border-red-300 rounded-lg">
+              <p className="text-sm text-red-600">{importError}</p>
             </div>
           )}
 
           {importSuccess && (
-            <div className="mt-2 p-3 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded-lg">
-              <p className="text-sm text-green-600 dark:text-green-400">{t('dataManager.importSuccess')}</p>
+            <div className="mt-2 p-3 bg-surface border border-accent border border-green-300 rounded-lg">
+              <p className="text-sm text-green-600">{t('dataManager.importSuccess')}</p>
             </div>
           )}
         </div>
 
-        <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
-          <h3 className="text-lg font-medium text-gray-700 dark:text-gray-200 mb-2">{t('dataManager.formatTitle')}</h3>
-          <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">
+        <div className="border-t border-border-main pt-4">
+          <h3 className="text-lg font-medium text-text-main mb-2">{t('dataManager.formatTitle')}</h3>
+          <p className="text-xs text-text-muted mb-2">
             {t('dataManager.formatDesc')}
           </p>
-          <pre className="bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-300 p-3 rounded text-xs overflow-x-auto border dark:border-gray-700">
+          <pre className="bg-surface-hover text-text-main p-3 rounded text-xs overflow-x-auto border border-border-main">
             {`{
   "moodEntries": [
     {
