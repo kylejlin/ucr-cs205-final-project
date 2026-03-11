@@ -132,5 +132,14 @@
     "importSuccess": "Data imported successfully!",
     "formatTitle": "Data Format",
     "formatDesc": "Your JSON file should follow this structure:"
+  },
+  "suggestions": {
+    "title": "Lifestyle Suggestions",
+    "generic": "Take a deep breath. Try spending 5 minutes meditating or listening to calming music.",
+    "exerciseMore": "You haven't been exercising much recently. Try going for a short walk! Physical activity can help improve your mood.",
+    "exerciseLess": "You've been exercising a lot lately! Make sure to take time to rest and recover. Overtraining can sometimes lead to fatigue and lower mood.",
+    "eatMore": "Your recorded calorie intake has been somewhat low. Remember that eating regular, energizing meals can have a big impact on how you feel.",
+    "eatLess": "Your recorded calorie intake is a bit high. While treating yourself is great, sometimes heavier meals can leave you feeling sluggish. Try balancing with lighter options.",
+    "disclaimer": "This is provided for entertainment purposes. We are not health professionals, and this is not medical advice."
   }
 }

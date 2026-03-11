@@ -8,6 +8,7 @@ import DailyGraph from './components/DailyGraph'
 import WeeklyGraph from './components/WeeklyGraph'
 import ExerciseGraph from './components/ExerciseGraph'
 import CalorieGraph from './components/CalorieGraph'
+import LifestyleSuggestions from './components/LifestyleSuggestions'
 import HistoryView from './components/HistoryView'
 import FileManager from './components/FileManager'
 
@@ -111,6 +112,7 @@ function App() {
 
           {activeTab === 'dashboard' && (
             <div className="space-y-6">
+              <LifestyleSuggestions />
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <MoodTracker />
                 <DailyGraph />
