@@ -87,20 +87,20 @@ export default function LifestyleSuggestions() {
   }
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 transition-colors border border-indigo-100 dark:border-indigo-900 border-l-4 border-l-indigo-500">
-      <h2 className="text-xl font-semibold mb-4 text-gray-800 dark:text-white flex items-center gap-2">
+    <div className="bg-surface rounded-xl shadow-lg p-6 transition-colors border border-accent border-l-4 border-l-accent">
+      <h2 className="text-xl font-semibold mb-4 text-text-main flex items-center gap-2">
         <span role="img" aria-label="lightbulb">💡</span>
         {t('suggestions.title')}
       </h2>
       <ul className="space-y-3 mb-6">
         {suggestionData.map((suggestion, index) => (
-          <li key={index} className="text-gray-700 dark:text-gray-300 leading-relaxed bg-indigo-50 dark:bg-indigo-900/30 p-4 rounded-lg">
+          <li key={index} className="text-text-main leading-relaxed bg-surface-hover p-4 rounded-lg">
             {suggestion}
           </li>
         ))}
       </ul>
-      <div className="border-t border-gray-100 dark:border-gray-700 pt-3 mt-4">
-        <p className="text-xs text-gray-400 dark:text-gray-500 italic text-center">
+      <div className="border-t border-border-main pt-3 mt-4">
+        <p className="text-xs text-text-muted italic text-center">
           {t('suggestions.disclaimer')}
         </p>
       </div>

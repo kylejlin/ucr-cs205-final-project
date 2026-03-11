@@ -44,11 +44,11 @@ function MoodTracker() {
     : null
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-      <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-4">
+    <div className="bg-surface rounded-lg shadow-lg p-6">
+      <h2 className="text-2xl font-semibold text-text-main mb-4">
         {t('mood.title')}
       </h2>
-      <p className="text-gray-600 dark:text-gray-400 mb-4">
+      <p className="text-text-muted mb-4">
         {t('mood.description')}
       </p>
 
@@ -58,13 +58,13 @@ function MoodTracker() {
             key={mood}
             onClick={() => handleSelectMood(mood)}
             className={`flex-1 py-3 rounded-lg font-semibold border transition-colors ${selectedMood === mood
-              ? 'bg-indigo-600 dark:bg-purple-500 text-white border-indigo-600 dark:border-purple-500'
-              : 'bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600'
+              ? 'bg-accent text-white border-accent'
+              : 'bg-surface-hover text-text-main border-border-main hover:bg-gray-100 '
               }`}
           >
             <div className="text-lg">{mood}</div>
             <div
-              className={`text-xs mt-1 ${selectedMood === mood ? 'text-white' : 'text-gray-600 dark:text-gray-400'
+              className={`text-xs mt-1 ${selectedMood === mood ? 'text-white' : 'text-text-muted'
                 }`}
             >
               {MOOD_LABELS[mood]}
@@ -77,7 +77,7 @@ function MoodTracker() {
         value={note}
         onChange={(e) => setNote(e.target.value)}
         placeholder={t('mood.notePlaceholder')}
-        className="w-full p-3 mb-6 border rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-200 border-gray-300 dark:border-gray-600 focus:ring-2 focus:ring-indigo-500 dark:focus:ring-purple-500 focus:border-transparent outline-none transition-colors resize-y"
+        className="w-full p-3 mb-6 border rounded-lg bg-surface-hover text-text-main border-border-main focus:ring-2 focus:ring-accent focus:border-transparent outline-none transition-colors resize-y"
         rows="3"
       />
 
@@ -85,20 +85,20 @@ function MoodTracker() {
         onClick={handleSubmit}
         disabled={!selectedMood}
         className={`w-full mb-6 py-2 px-4 rounded-lg font-medium transition-colors ${selectedMood
-          ? 'bg-indigo-600 dark:bg-purple-500 text-white hover:bg-indigo-700 dark:hover:bg-purple-600'
-          : 'bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
+          ? 'bg-accent text-white hover:bg-accent-hover'
+          : 'bg-gray-200  text-text-muted cursor-not-allowed'
           }`}
       >
         {t('mood.saveButton')}
       </button>
 
       {latestEntry && (
-        <div className="mb-6 p-4 bg-indigo-50 dark:bg-indigo-900/30 rounded-lg">
-          <p className="text-sm text-gray-600 dark:text-gray-300 mb-1">{t('mood.lastRecorded')}</p>
-          <p className="text-lg font-semibold text-indigo-700 dark:text-purple-300">
+        <div className="mb-6 p-4 bg-surface-hover rounded-lg">
+          <p className="text-sm text-text-muted mb-1">{t('mood.lastRecorded')}</p>
+          <p className="text-lg font-semibold text-accent">
             {latestEntry.mood} – {MOOD_LABELS[latestEntry.mood] || t('mood.moodLabel')}
           </p>
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+          <p className="text-xs text-text-muted mt-1">
             {latestEntry.date} {t('common.at')} {latestEntry.time}
           </p>
         </div>
@@ -106,7 +106,7 @@ function MoodTracker() {
 
       <div className="space-y-2 max-h-64 overflow-y-auto">
         {moodEntries.length === 0 ? (
-          <p className="text-gray-500 dark:text-gray-400 text-center py-4">
+          <p className="text-text-muted text-center py-4">
             {t('mood.noMoods')}
           </p>
         ) : (
@@ -115,13 +115,13 @@ function MoodTracker() {
             .map((entry) => (
               <div
                 key={entry.id}
-                className="flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                className="flex justify-between items-center p-3 bg-surface-hover rounded-lg hover:bg-surface-hover transition-colors"
               >
                 <div>
-                  <span className="font-medium text-gray-800 dark:text-gray-100">
+                  <span className="font-medium text-text-main">
                     {entry.mood} – {MOOD_LABELS[entry.mood] || t('mood.moodLabel')}
                   </span>
-                  <span className="text-gray-500 dark:text-gray-400 text-sm ml-2">
+                  <span className="text-text-muted text-sm ml-2">
                     • {entry.date} {t('common.at')} {entry.time}
                   </span>
                 </div>
@@ -131,7 +131,7 @@ function MoodTracker() {
                       deleteMoodEntry(entry.id)
                     }
                   }}
-                  className="text-red-500 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 font-medium text-sm px-2 py-1 rounded hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors"
+                  className="text-red-500 hover:text-red-600 font-medium text-sm px-2 py-1 rounded hover:bg-red-50 transition-colors"
                   title={t('common.delete')}
                 >
                   {t('common.delete')}

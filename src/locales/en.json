@@ -5,7 +5,16 @@
     "lightMode": "Light Mode",
     "darkMode": "Dark Mode",
     "english": "English",
-    "japanese": "日本語"
+    "japanese": "日本語",
+    "theme": "Theme",
+    "themes": {
+      "light": "Light Mode",
+      "dark": "Dark Mode",
+      "coastal": "Coastal Breeze",
+      "sunset": "Sunset Glow",
+      "forest": "Enchanted Forest",
+      "lavender": "Lavender Dream"
+    }
   },
   "nav": {
     "dashboard": "Dashboard",
