@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { HealthDataProvider } from './context/HealthDataContext'
 import MoodTracker from './modules/MoodTracker'
 import ExerciseTracker from './modules/ExerciseTracker'
+import FoodTracker from './modules/FoodTracker'
 import DailyGraph from './components/DailyGraph'
 import WeeklyGraph from './components/WeeklyGraph'
 import ExerciseGraph from './components/ExerciseGraph'
@@ -87,6 +88,15 @@ function App() {
                 {t('nav.exercise')}
               </button>
               <button
+                onClick={() => setActiveTab('food')}
+                className={`py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'food'
+                    ? 'border-indigo-500 text-indigo-600'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  }`}
+              >
+                {t('nav.food')}
+              </button>
+              <button
                 onClick={() => setActiveTab('data')}
                 className={`py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'data'
                     ? 'border-indigo-500 text-indigo-600'
@@ -113,6 +123,14 @@ function App() {
             <div className="space-y-6">
               <div className="max-w-xl mx-auto">
                 <ExerciseTracker />
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'food' && (
+            <div className="space-y-6">
+              <div className="max-w-xl mx-auto">
+                <FoodTracker />
               </div>
             </div>
           )}

@@ -11,6 +11,7 @@
     "dashboard": "Dashboard",
     "history": "History",
     "exercise": "Exercise",
+    "food": "Food",
     "dataManagement": "Data Management"
   },
   "common": {
@@ -59,6 +60,26 @@
     "min": "min",
     "kcal": "kcal"
   },
+  "food": {
+    "title": "Food Tracker",
+    "description": "Log your meals and snacks to keep track of your nutrition.",
+    "mealTypeLabel": "Meal Type",
+    "mealTypes": {
+      "Breakfast": "Breakfast",
+      "Lunch": "Lunch",
+      "Dinner": "Dinner",
+      "Snack": "Snack"
+    },
+    "foodNameLabel": "Food Name",
+    "caloriesLabel": "Calories (optional)",
+    "foodNamePlaceholder": "e.g. Oatmeal with fruits",
+    "caloriesPlaceholder": "e.g. 350",
+    "saveButton": "Log Food",
+    "lastLogged": "Last logged food:",
+    "noFoods": "No food logged yet.",
+    "deleteConfirm": "Delete this food entry?",
+    "kcal": "kcal"
+  },
   "dailyGraph": {
     "title": "Today's Mood",
     "noData": "No moods logged for today yet. Record how you feel to see it here.",
@@ -76,7 +97,8 @@
     "title": "History",
     "noHistory": "No history yet. Start logging your mood to see it here.",
     "moodLabel": "Mood",
-    "exerciseLabel": "Exercise"
+    "exerciseLabel": "Exercise",
+    "foodLabel": "Food"
   },
   "dataManager": {
     "title": "Data Management",

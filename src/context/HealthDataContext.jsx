@@ -7,6 +7,7 @@ const HealthDataContext = createContext()
 export function HealthDataProvider({ children }) {
   const [moodEntries, setMoodEntries] = useState([])
   const [exerciseEntries, setExerciseEntries] = useState([])
+  const [foodEntries, setFoodEntries] = useState([])
   const [isLoaded, setIsLoaded] = useState(false)
   const [fileHandle, setFileHandle] = useState(null)
   const [fileStatus, setFileStatus] = useState('none') // 'none', 'saving', 'saved', 'error'
@@ -19,6 +20,7 @@ export function HealthDataProvider({ children }) {
       const loaded = loadData()
       setMoodEntries(loaded.moodEntries)
       setExerciseEntries(loaded.exerciseEntries)
+      setFoodEntries(loaded.foodEntries || [])
       setIsLoaded(true)
 
       // Try to set up file auto-save
@@ -36,11 +38,13 @@ export function HealthDataProvider({ children }) {
             let maxId = 0;
             if (loaded.moodEntries?.length > 0) maxId = Math.max(maxId, ...loaded.moodEntries.map(e => e.id));
             if (loaded.exerciseEntries?.length > 0) maxId = Math.max(maxId, ...loaded.exerciseEntries.map(e => e.id));
+            if (loaded.foodEntries?.length > 0) maxId = Math.max(maxId, ...loaded.foodEntries.map(e => e.id));
             const storageDate = maxId > 0 ? new Date(maxId) : null;
             if (!storageDate || (fileDate && fileDate > storageDate)) {
               if (fileData.moodEntries) setMoodEntries(fileData.moodEntries)
               if (fileData.exerciseEntries) setExerciseEntries(fileData.exerciseEntries)
-              saveData(fileData.moodEntries || [], fileData.exerciseEntries || [])
+              if (fileData.foodEntries) setFoodEntries(fileData.foodEntries)
+              saveData(fileData.moodEntries || [], fileData.exerciseEntries || [], fileData.foodEntries || [])
             }
           }
         }
@@ -54,6 +58,7 @@ export function HealthDataProvider({ children }) {
           await writeFile(handle, {
             moodEntries: loaded.moodEntries,
             exerciseEntries: loaded.exerciseEntries,
+            foodEntries: loaded.foodEntries || [],
             lastSaved: new Date().toISOString()
           })
         }
@@ -66,10 +71,10 @@ export function HealthDataProvider({ children }) {
   // Auto-save to localStorage and file when data changes
   useEffect(() => {
     if (isLoaded) {
-      saveData(moodEntries, exerciseEntries)
+      saveData(moodEntries, exerciseEntries, foodEntries)
       saveToFile()
     }
-  }, [moodEntries, exerciseEntries, isLoaded])
+  }, [moodEntries, exerciseEntries, foodEntries, isLoaded])
 
   async function saveToFile() {
     const handle = fileHandleRef.current
@@ -79,6 +84,7 @@ export function HealthDataProvider({ children }) {
     const success = await writeFile(handle, {
       moodEntries,
       exerciseEntries,
+      foodEntries,
       lastSaved: new Date().toISOString()
     })
 
@@ -114,7 +120,8 @@ export function HealthDataProvider({ children }) {
       if (data) {
         if (data.moodEntries) setMoodEntries(data.moodEntries)
         if (data.exerciseEntries) setExerciseEntries(data.exerciseEntries)
-        saveData(data.moodEntries || [], data.exerciseEntries || [])
+        if (data.foodEntries) setFoodEntries(data.foodEntries)
+        saveData(data.moodEntries || [], data.exerciseEntries || [], data.foodEntries || [])
         return true
       }
     }
@@ -137,15 +144,25 @@ export function HealthDataProvider({ children }) {
     setExerciseEntries(exerciseEntries.filter(entry => entry.id !== id))
   }
 
+  const addFoodEntry = (entry) => {
+    setFoodEntries([...foodEntries, entry])
+  }
+
+  const deleteFoodEntry = (id) => {
+    setFoodEntries(foodEntries.filter(entry => entry.id !== id))
+  }
+
   const setAllData = (data) => {
     if (data.moodEntries) setMoodEntries(data.moodEntries)
     if (data.exerciseEntries) setExerciseEntries(data.exerciseEntries)
+    if (data.foodEntries) setFoodEntries(data.foodEntries)
   }
 
   const exportData = () => {
     const data = {
       moodEntries,
       exerciseEntries,
+      foodEntries,
       exportedAt: new Date().toISOString(),
     }
     return JSON.stringify(data, null, 2)
@@ -156,6 +173,7 @@ export function HealthDataProvider({ children }) {
       const data = JSON.parse(jsonString)
       let moodValid = true;
       let exerciseValid = true;
+      let foodValid = true;
 
       if (data.moodEntries && Array.isArray(data.moodEntries)) {
         moodValid = data.moodEntries.every(entry =>
@@ -179,7 +197,18 @@ export function HealthDataProvider({ children }) {
         )
       }
 
-      if (moodValid && exerciseValid && (data.moodEntries || data.exerciseEntries)) {
+      if (data.foodEntries && Array.isArray(data.foodEntries)) {
+        foodValid = data.foodEntries.every(entry =>
+          entry.id &&
+          typeof entry.mealType === 'string' &&
+          typeof entry.foodName === 'string' &&
+          entry.timestamp &&
+          entry.time &&
+          entry.date
+        )
+      }
+
+      if (moodValid && exerciseValid && foodValid && (data.moodEntries || data.exerciseEntries || data.foodEntries)) {
         setAllData(data)
         return true
       }
@@ -195,10 +224,13 @@ export function HealthDataProvider({ children }) {
       value={{
         moodEntries,
         exerciseEntries,
+        foodEntries,
         addMoodEntry,
         deleteMoodEntry,
         addExerciseEntry,
         deleteExerciseEntry,
+        addFoodEntry,
+        deleteFoodEntry,
         exportData,
         importData,
         setAllData,

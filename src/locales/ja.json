@@ -11,6 +11,7 @@
     "dashboard": "ダッシュボード",
     "history": "履歴",
     "exercise": "運動",
+    "food": "食事",
     "dataManagement": "データ管理"
   },
   "common": {
@@ -59,6 +60,26 @@
     "min": "分",
     "kcal": "kcal"
   },
+  "food": {
+    "title": "食事トラッカー",
+    "description": "食事や間食を記録して、栄養管理に役立てましょう。",
+    "mealTypeLabel": "食事の種類",
+    "mealTypes": {
+      "Breakfast": "朝食",
+      "Lunch": "昼食",
+      "Dinner": "夕食",
+      "Snack": "間食"
+    },
+    "foodNameLabel": "食事名",
+    "caloriesLabel": "カロリー (任意)",
+    "foodNamePlaceholder": "例: フルーツ入りオートミール",
+    "caloriesPlaceholder": "例: 350",
+    "saveButton": "食事を記録する",
+    "lastLogged": "最後に記録された食事:",
+    "noFoods": "まだ食事の記録はありません。",
+    "deleteConfirm": "この食事の記録を削除しますか？",
+    "kcal": "kcal"
+  },
   "dailyGraph": {
     "title": "今日の気分",
     "noData": "今日の気分の記録はまだありません。気分を記録してここに表示しましょう。",
@@ -76,7 +97,8 @@
     "title": "履歴",
     "noHistory": "まだ履歴はありません。記録を始めて確認しましょう。",
     "moodLabel": "気分",
-    "exerciseLabel": "運動"
+    "exerciseLabel": "運動",
+    "foodLabel": "食事"
   },
   "dataManager": {
     "title": "データ管理",
