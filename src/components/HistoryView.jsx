@@ -51,7 +51,7 @@ function HistoryView() {
                         {entry.entryType === 'mood' ? (
                           <>
                             <span className="font-medium text-text-main">
-                              {t('history.moodLabel')}: {entry.mood}
+                              {t('history.moodLabel')}: {entry.mood} – {t(`mood.labels.${entry.mood}`)}
                             </span>
                             <span className="text-text-muted text-sm ml-2">
                               • {entry.time}
