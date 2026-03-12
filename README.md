@@ -1,4 +1,5 @@
 # CS205 Final Project: AI-Assisted Feature Development
+# Andy Jarean, Kyle Lin
 
 ## Overview
 
