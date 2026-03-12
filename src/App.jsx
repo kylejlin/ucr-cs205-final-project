@@ -18,6 +18,26 @@ function App() {
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem('theme') || 'light';
   });
+  const [showDoom, setShowDoom] = useState(false);
+
+  useEffect(() => {
+    let userInput = '';
+    const secretCode = 'iddqd';
+    
+    const handleKeyDown = (e) => {
+      userInput += e.key.toLowerCase();
+      if (userInput.length > secretCode.length) {
+        userInput = userInput.slice(userInput.length - secretCode.length);
+      }
+      if (userInput === secretCode) {
+        setShowDoom(true);
+        userInput = '';
+      }
+    };
+    
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   useEffect(() => {
     document.documentElement.classList.remove('dark');
@@ -163,6 +183,27 @@ function App() {
           )}
         </div>
       </div>
+
+      {showDoom && (
+        <div className="fixed inset-0 z-50 bg-black flex flex-col items-center justify-center">
+          <button 
+            onClick={() => setShowDoom(false)}
+            className="absolute top-4 right-4 z-50 bg-red-600 text-white font-bold py-2 px-4 rounded hover:bg-red-700 transition"
+          >
+            Close
+          </button>
+          <div className="relative w-full max-w-4xl aspect-[4/3] bg-black shadow-2xl">
+            <iframe 
+              src="https://archive.org/embed/doom_dos"
+              width="100%" 
+              height="100%" 
+              className="border-none"
+              allowFullScreen
+              title="DOOM"
+            ></iframe>
+          </div>
+        </div>
+      )}
     </HealthDataProvider>
   )
 }
