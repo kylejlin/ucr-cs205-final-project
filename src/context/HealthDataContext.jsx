@@ -8,6 +8,7 @@ export function HealthDataProvider({ children }) {
   const [moodEntries, setMoodEntries] = useState([])
   const [exerciseEntries, setExerciseEntries] = useState([])
   const [foodEntries, setFoodEntries] = useState([])
+  const [sleepEntries, setSleepEntries] = useState([])
   const [isLoaded, setIsLoaded] = useState(false)
   const [fileHandle, setFileHandle] = useState(null)
   const [fileStatus, setFileStatus] = useState('none') // 'none', 'saving', 'saved', 'error'
@@ -21,6 +22,7 @@ export function HealthDataProvider({ children }) {
       setMoodEntries(loaded.moodEntries)
       setExerciseEntries(loaded.exerciseEntries)
       setFoodEntries(loaded.foodEntries || [])
+      setSleepEntries(loaded.sleepEntries || [])
       setIsLoaded(true)
 
       // Try to set up file auto-save
@@ -39,12 +41,14 @@ export function HealthDataProvider({ children }) {
             if (loaded.moodEntries?.length > 0) maxId = Math.max(maxId, ...loaded.moodEntries.map(e => e.id));
             if (loaded.exerciseEntries?.length > 0) maxId = Math.max(maxId, ...loaded.exerciseEntries.map(e => e.id));
             if (loaded.foodEntries?.length > 0) maxId = Math.max(maxId, ...loaded.foodEntries.map(e => e.id));
+            if (loaded.sleepEntries?.length > 0) maxId = Math.max(maxId, ...loaded.sleepEntries.map(e => e.id));
             const storageDate = maxId > 0 ? new Date(maxId) : null;
             if (!storageDate || (fileDate && fileDate > storageDate)) {
               if (fileData.moodEntries) setMoodEntries(fileData.moodEntries)
               if (fileData.exerciseEntries) setExerciseEntries(fileData.exerciseEntries)
               if (fileData.foodEntries) setFoodEntries(fileData.foodEntries)
-              saveData(fileData.moodEntries || [], fileData.exerciseEntries || [], fileData.foodEntries || [])
+              if (fileData.sleepEntries) setSleepEntries(fileData.sleepEntries)
+              saveData(fileData.moodEntries || [], fileData.exerciseEntries || [], fileData.foodEntries || [], fileData.sleepEntries || [])
             }
           }
         }
@@ -59,6 +63,7 @@ export function HealthDataProvider({ children }) {
             moodEntries: loaded.moodEntries,
             exerciseEntries: loaded.exerciseEntries,
             foodEntries: loaded.foodEntries || [],
+            sleepEntries: loaded.sleepEntries || [],
             lastSaved: new Date().toISOString()
           })
         }
@@ -71,10 +76,10 @@ export function HealthDataProvider({ children }) {
   // Auto-save to localStorage and file when data changes
   useEffect(() => {
     if (isLoaded) {
-      saveData(moodEntries, exerciseEntries, foodEntries)
+      saveData(moodEntries, exerciseEntries, foodEntries, sleepEntries)
       saveToFile()
     }
-  }, [moodEntries, exerciseEntries, foodEntries, isLoaded])
+  }, [moodEntries, exerciseEntries, foodEntries, sleepEntries, isLoaded])
 
   async function saveToFile() {
     const handle = fileHandleRef.current
@@ -85,6 +90,7 @@ export function HealthDataProvider({ children }) {
       moodEntries,
       exerciseEntries,
       foodEntries,
+      sleepEntries,
       lastSaved: new Date().toISOString()
     })
 
@@ -121,7 +127,8 @@ export function HealthDataProvider({ children }) {
         if (data.moodEntries) setMoodEntries(data.moodEntries)
         if (data.exerciseEntries) setExerciseEntries(data.exerciseEntries)
         if (data.foodEntries) setFoodEntries(data.foodEntries)
-        saveData(data.moodEntries || [], data.exerciseEntries || [], data.foodEntries || [])
+        if (data.sleepEntries) setSleepEntries(data.sleepEntries)
+        saveData(data.moodEntries || [], data.exerciseEntries || [], data.foodEntries || [], data.sleepEntries || [])
         return true
       }
     }
@@ -152,10 +159,19 @@ export function HealthDataProvider({ children }) {
     setFoodEntries(foodEntries.filter(entry => entry.id !== id))
   }
 
+  const addSleepEntry = (entry) => {
+    setSleepEntries([...sleepEntries, entry])
+  }
+
+  const deleteSleepEntry = (id) => {
+    setSleepEntries(sleepEntries.filter(entry => entry.id !== id))
+  }
+
   const setAllData = (data) => {
     if (data.moodEntries) setMoodEntries(data.moodEntries)
     if (data.exerciseEntries) setExerciseEntries(data.exerciseEntries)
     if (data.foodEntries) setFoodEntries(data.foodEntries)
+    if (data.sleepEntries) setSleepEntries(data.sleepEntries)
   }
 
   const exportData = () => {
@@ -163,6 +179,7 @@ export function HealthDataProvider({ children }) {
       moodEntries,
       exerciseEntries,
       foodEntries,
+      sleepEntries,
       exportedAt: new Date().toISOString(),
     }
     return JSON.stringify(data, null, 2)
@@ -208,7 +225,19 @@ export function HealthDataProvider({ children }) {
         )
       }
 
-      if (moodValid && exerciseValid && foodValid && (data.moodEntries || data.exerciseEntries || data.foodEntries)) {
+      let sleepValid = true;
+      if (data.sleepEntries && Array.isArray(data.sleepEntries)) {
+        sleepValid = data.sleepEntries.every(entry =>
+          entry.id &&
+          typeof entry.hoursSlept === 'number' &&
+          typeof entry.sleepQuality === 'number' &&
+          entry.timestamp &&
+          entry.time &&
+          entry.date
+        )
+      }
+
+      if (moodValid && exerciseValid && foodValid && sleepValid && (data.moodEntries || data.exerciseEntries || data.foodEntries || data.sleepEntries)) {
         setAllData(data)
         return true
       }
@@ -225,12 +254,15 @@ export function HealthDataProvider({ children }) {
         moodEntries,
         exerciseEntries,
         foodEntries,
+        sleepEntries,
         addMoodEntry,
         deleteMoodEntry,
         addExerciseEntry,
         deleteExerciseEntry,
         addFoodEntry,
         deleteFoodEntry,
+        addSleepEntry,
+        deleteSleepEntry,
         exportData,
         importData,
         setAllData,

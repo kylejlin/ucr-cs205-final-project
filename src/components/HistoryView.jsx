@@ -4,16 +4,17 @@ import { useHealthData } from '../context/HealthDataContext'
 
 function HistoryView() {
   const { t } = useTranslation();
-  const { moodEntries, exerciseEntries, foodEntries, deleteMoodEntry, deleteExerciseEntry, deleteFoodEntry } = useHealthData()
+  const { moodEntries, exerciseEntries, foodEntries, sleepEntries, deleteMoodEntry, deleteExerciseEntry, deleteFoodEntry, deleteSleepEntry } = useHealthData()
 
   const sortedEntries = useMemo(() => {
     const allEntries = [
       ...moodEntries.map(e => ({ ...e, entryType: 'mood' })),
       ...(exerciseEntries || []).map(e => ({ ...e, entryType: 'exercise' })),
-      ...(foodEntries || []).map(e => ({ ...e, entryType: 'food' }))
+      ...(foodEntries || []).map(e => ({ ...e, entryType: 'food' })),
+      ...(sleepEntries || []).map(e => ({ ...e, entryType: 'sleep' }))
     ]
     return allEntries.sort((a, b) => b.id - a.id)
-  }, [moodEntries, exerciseEntries, foodEntries])
+  }, [moodEntries, exerciseEntries, foodEntries, sleepEntries])
 
   const groupedByDate = useMemo(() => {
     const grouped = {}
@@ -32,6 +33,9 @@ function HistoryView() {
     }
     if (entry.entryType === 'food') {
       return "bg-amber-50 border-amber-200 dark:bg-amber-900/30 dark:border-amber-800 text-amber-900 dark:text-amber-200"
+    }
+    if (entry.entryType === 'sleep') {
+      return "bg-indigo-50 border-indigo-200 dark:bg-indigo-900/30 dark:border-indigo-800 text-indigo-900 dark:text-indigo-200"
     }
     if (entry.entryType === 'mood') {
       switch(entry.mood) {
@@ -96,7 +100,7 @@ function HistoryView() {
                               • {entry.time}
                             </span>
                           </>
-                        ) : (
+                        ) : entry.entryType === 'food' ? (
                           <>
                             <span className="font-medium text-inherit">
                               🍎 {t('history.foodLabel')}: {t(`food.mealTypes.${entry.mealType}`)} - {entry.foodName}
@@ -110,7 +114,19 @@ function HistoryView() {
                               • {entry.time}
                             </span>
                           </>
-                        )}
+                        ) : entry.entryType === 'sleep' ? (
+                          <>
+                            <span className="font-medium text-inherit">
+                              🌙 {t('history.sleepLabel')}: {entry.hoursSlept} {t('sleep.hoursSlept')}
+                            </span>
+                            <span className="text-inherit opacity-80 text-sm ml-2">
+                              | {t('sleep.qualityLabel')}: {entry.sleepQuality}/5
+                            </span>
+                            <span className="text-inherit opacity-80 text-sm ml-2">
+                              • {entry.time}
+                            </span>
+                          </>
+                        ) : null}
                       </div>
                       <button
                         onClick={() => {
@@ -118,8 +134,10 @@ function HistoryView() {
                             if (window.confirm(t('mood.deleteConfirm'))) deleteMoodEntry(entry.id)
                           } else if (entry.entryType === 'exercise') {
                             if (window.confirm(t('exercise.deleteConfirm'))) deleteExerciseEntry(entry.id)
-                          } else {
+                          } else if (entry.entryType === 'food') {
                             if (window.confirm(t('food.deleteConfirm'))) deleteFoodEntry(entry.id)
+                          } else if (entry.entryType === 'sleep') {
+                            if (window.confirm(t('sleep.deleteConfirm'))) deleteSleepEntry(entry.id)
                           }
                         }}
                         className="text-red-500 hover:text-red-600 font-medium text-sm ml-4 px-2 py-1 rounded hover:bg-red-50 transition-colors"

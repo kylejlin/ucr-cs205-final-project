@@ -4,6 +4,7 @@ import { HealthDataProvider } from './context/HealthDataContext'
 import MoodTracker from './modules/MoodTracker'
 import ExerciseTracker from './modules/ExerciseTracker'
 import FoodTracker from './modules/FoodTracker'
+import SleepTracker from './modules/SleepTracker'
 import DailyGraph from './components/DailyGraph'
 import WeeklyGraph from './components/WeeklyGraph'
 import ExerciseGraph from './components/ExerciseGraph'
@@ -128,6 +129,15 @@ function App() {
                 {t('nav.food')}
               </button>
               <button
+                onClick={() => setActiveTab('sleep')}
+                className={`py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'sleep'
+                    ? 'border-indigo-500 text-accent'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  }`}
+              >
+                {t('nav.sleep')}
+              </button>
+              <button
                 onClick={() => setActiveTab('data')}
                 className={`py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'data'
                     ? 'border-indigo-500 text-accent'
@@ -170,6 +180,14 @@ function App() {
             <div className="space-y-6">
               <div className="max-w-xl mx-auto">
                 <FoodTracker />
+              </div>
+            </div>
+          )}
+
+          {activeTab === 'sleep' && (
+            <div className="space-y-6">
+              <div className="max-w-xl mx-auto">
+                <SleepTracker />
               </div>
             </div>
           )}
