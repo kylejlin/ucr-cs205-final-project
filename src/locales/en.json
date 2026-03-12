@@ -150,5 +150,8 @@
     "eatMore": "Your recorded calorie intake has been somewhat low. Remember that eating regular, energizing meals can have a big impact on how you feel.",
     "eatLess": "Your recorded calorie intake is a bit high. While treating yourself is great, sometimes heavier meals can leave you feeling sluggish. Try balancing with lighter options.",
     "disclaimer": "This is provided for entertainment purposes. We are not health professionals, and this is not medical advice."
+  },
+  "dashboard": {
+    "weeklyTrends": "Weekly Trends"
   }
 }
