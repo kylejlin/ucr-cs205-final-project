@@ -10,6 +10,7 @@ export function loadData() {
         moodEntries: data.moodEntries || [],
         exerciseEntries: data.exerciseEntries || [],
         foodEntries: data.foodEntries || [],
+        sleepEntries: data.sleepEntries || [],
       }
     }
   } catch (error) {
@@ -19,12 +20,13 @@ export function loadData() {
     moodEntries: [],
     exerciseEntries: [],
     foodEntries: [],
+    sleepEntries: [],
   }
 }
 
-export function saveData(moodEntries, exerciseEntries = [], foodEntries = []) {
+export function saveData(moodEntries, exerciseEntries = [], foodEntries = [], sleepEntries = []) {
   try {
-    const data = { moodEntries, exerciseEntries, foodEntries }
+    const data = { moodEntries, exerciseEntries, foodEntries, sleepEntries }
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
   } catch (error) {
     console.error('Error saving to localStorage:', error)

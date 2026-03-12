@@ -103,43 +103,6 @@ function MoodTracker() {
           </p>
         </div>
       )}
-
-      <div className="space-y-2 max-h-64 overflow-y-auto">
-        {moodEntries.length === 0 ? (
-          <p className="text-text-muted text-center py-4">
-            {t('mood.noMoods')}
-          </p>
-        ) : (
-          [...moodEntries]
-            .sort((a, b) => b.id - a.id)
-            .map((entry) => (
-              <div
-                key={entry.id}
-                className="flex justify-between items-center p-3 bg-surface-hover rounded-lg hover:bg-surface-hover transition-colors"
-              >
-                <div>
-                  <span className="font-medium text-text-main">
-                    {entry.mood} – {MOOD_LABELS[entry.mood] || t('mood.moodLabel')}
-                  </span>
-                  <span className="text-text-muted text-sm ml-2">
-                    • {entry.date} {t('common.at')} {entry.time}
-                  </span>
-                </div>
-                <button
-                  onClick={() => {
-                    if (window.confirm(t('mood.deleteConfirm'))) {
-                      deleteMoodEntry(entry.id)
-                    }
-                  }}
-                  className="text-red-500 hover:text-red-600 font-medium text-sm px-2 py-1 rounded hover:bg-red-50 transition-colors"
-                  title={t('common.delete')}
-                >
-                  {t('common.delete')}
-                </button>
-              </div>
-            ))
-        )}
-      </div>
     </div>
   )
 }

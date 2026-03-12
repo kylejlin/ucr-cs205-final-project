@@ -21,6 +21,7 @@
     "history": "履歴",
     "exercise": "運動",
     "food": "食事",
+    "sleep": "睡眠",
     "dataManagement": "データ管理"
   },
   "common": {
@@ -89,6 +90,16 @@
     "deleteConfirm": "この食事の記録を削除しますか？",
     "kcal": "kcal"
   },
+  "sleep": {
+    "title": "睡眠トラッカー",
+    "description": "睡眠時間と質を記録しましょう。",
+    "hoursLabel": "睡眠時間（時間）",
+    "qualityLabel": "睡眠の質",
+    "saveButton": "睡眠を記録する",
+    "deleteConfirm": "この睡眠記録を削除しますか？",
+    "hoursSlept": "時間",
+    "hoursPlaceholder": "例: 8"
+  },
   "dailyGraph": {
     "title": "今日の気分",
     "noData": "今日の気分の記録はまだありません。気分を記録してここに表示しましょう。",
@@ -111,7 +122,8 @@
     "noHistory": "まだ履歴はありません。記録を始めて確認しましょう。",
     "moodLabel": "気分",
     "exerciseLabel": "運動",
-    "foodLabel": "食事"
+    "foodLabel": "食事",
+    "sleepLabel": "睡眠"
   },
   "dataManager": {
     "title": "データ管理",
@@ -150,5 +162,8 @@
     "eatMore": "記録された摂取カロリーが少し低めです。精の出る食事を規則正しくとることは気分に大きな影響を与えます。",
     "eatLess": "記録された摂取カロリーが少し高めです。自分へのご褒美も良いですが、重い食事は体がだるく感じることがあります。軽めの食事とバランスをとってみてください。",
     "disclaimer": "これは娯楽目的で提供されています。私たちは医療の専門家ではなく、これは医学的なアドバイスではありません。"
+  },
+  "dashboard": {
+    "weeklyTrends": "週間トレンド"
   }
 }

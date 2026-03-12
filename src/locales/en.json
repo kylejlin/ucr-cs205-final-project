@@ -21,6 +21,7 @@
     "history": "History",
     "exercise": "Exercise",
     "food": "Food",
+    "sleep": "Sleep",
     "dataManagement": "Data Management"
   },
   "common": {
@@ -89,6 +90,16 @@
     "deleteConfirm": "Delete this food entry?",
     "kcal": "kcal"
   },
+  "sleep": {
+    "title": "Sleep Tracker",
+    "description": "Log your sleep duration and quality.",
+    "hoursLabel": "Hours Slept",
+    "qualityLabel": "Sleep Quality",
+    "saveButton": "Log Sleep",
+    "deleteConfirm": "Delete this sleep entry?",
+    "hoursSlept": "hours",
+    "hoursPlaceholder": "e.g. 8"
+  },
   "dailyGraph": {
     "title": "Today's Mood",
     "noData": "No moods logged for today yet. Record how you feel to see it here.",
@@ -111,7 +122,8 @@
     "noHistory": "No history yet. Start logging your mood to see it here.",
     "moodLabel": "Mood",
     "exerciseLabel": "Exercise",
-    "foodLabel": "Food"
+    "foodLabel": "Food",
+    "sleepLabel": "Sleep"
   },
   "dataManager": {
     "title": "Data Management",
@@ -150,5 +162,8 @@
     "eatMore": "Your recorded calorie intake has been somewhat low. Remember that eating regular, energizing meals can have a big impact on how you feel.",
     "eatLess": "Your recorded calorie intake is a bit high. While treating yourself is great, sometimes heavier meals can leave you feeling sluggish. Try balancing with lighter options.",
     "disclaimer": "This is provided for entertainment purposes. We are not health professionals, and this is not medical advice."
+  },
+  "dashboard": {
+    "weeklyTrends": "Weekly Trends"
   }
 }

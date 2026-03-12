@@ -4,6 +4,7 @@ import { HealthDataProvider } from './context/HealthDataContext'
 import MoodTracker from './modules/MoodTracker'
 import ExerciseTracker from './modules/ExerciseTracker'
 import FoodTracker from './modules/FoodTracker'
+import SleepTracker from './modules/SleepTracker'
 import DailyGraph from './components/DailyGraph'
 import WeeklyGraph from './components/WeeklyGraph'
 import ExerciseGraph from './components/ExerciseGraph'
@@ -18,6 +19,26 @@ function App() {
   const [theme, setTheme] = useState(() => {
     return localStorage.getItem('theme') || 'light';
   });
+  const [showDoom, setShowDoom] = useState(false);
+
+  useEffect(() => {
+    let userInput = '';
+    const secretCode = 'iddqd';
+    
+    const handleKeyDown = (e) => {
+      userInput += e.key.toLowerCase();
+      if (userInput.length > secretCode.length) {
+        userInput = userInput.slice(userInput.length - secretCode.length);
+      }
+      if (userInput === secretCode) {
+        setShowDoom(true);
+        userInput = '';
+      }
+    };
+    
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   useEffect(() => {
     document.documentElement.classList.remove('dark');
@@ -108,6 +129,15 @@ function App() {
                 {t('nav.food')}
               </button>
               <button
+                onClick={() => setActiveTab('sleep')}
+                className={`py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'sleep'
+                    ? 'border-indigo-500 text-accent'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                  }`}
+              >
+                {t('nav.sleep')}
+              </button>
+              <button
                 onClick={() => setActiveTab('data')}
                 className={`py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'data'
                     ? 'border-indigo-500 text-accent'
@@ -122,12 +152,18 @@ function App() {
           {activeTab === 'dashboard' && (
             <div className="space-y-6">
               <LifestyleSuggestions />
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <MoodTracker />
                 <DailyGraph />
-                <WeeklyGraph />
-                <ExerciseGraph />
-                <CalorieGraph />
+              </div>
+              
+              <div className="mt-8">
+                <h2 className="text-2xl font-bold text-text-main mb-4">{t('dashboard.weeklyTrends')}</h2>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <WeeklyGraph />
+                  <ExerciseGraph />
+                  <CalorieGraph />
+                </div>
               </div>
             </div>
           )}
@@ -148,6 +184,14 @@ function App() {
             </div>
           )}
 
+          {activeTab === 'sleep' && (
+            <div className="space-y-6">
+              <div className="max-w-xl mx-auto">
+                <SleepTracker />
+              </div>
+            </div>
+          )}
+
           {activeTab === 'history' && (
             <HistoryView />
           )}
@@ -157,6 +201,27 @@ function App() {
           )}
         </div>
       </div>
+
+      {showDoom && (
+        <div className="fixed inset-0 z-50 bg-black flex flex-col items-center justify-center">
+          <button 
+            onClick={() => setShowDoom(false)}
+            className="absolute top-4 right-4 z-50 bg-red-600 text-white font-bold py-2 px-4 rounded hover:bg-red-700 transition"
+          >
+            Close
+          </button>
+          <div className="relative w-full max-w-4xl aspect-[4/3] bg-black shadow-2xl">
+            <iframe 
+              src="https://archive.org/embed/doom_dos"
+              width="100%" 
+              height="100%" 
+              className="border-none"
+              allowFullScreen
+              title="DOOM"
+            ></iframe>
+          </div>
+        </div>
+      )}
     </HealthDataProvider>
   )
 }

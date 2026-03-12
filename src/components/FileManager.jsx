@@ -63,7 +63,7 @@ function FileManager() {
 
   const handleClear = () => {
     if (window.confirm(t('dataManager.clearConfirm'))) {
-      importData(JSON.stringify({ moodEntries: [], exerciseEntries: [], foodEntries: [] }))
+      importData(JSON.stringify({ moodEntries: [], exerciseEntries: [], foodEntries: [], sleepEntries: [] }))
       setImportText('')
       setImportSuccess(true)
       setTimeout(() => setImportSuccess(false), 3000)
@@ -175,7 +175,7 @@ function FileManager() {
               id="importText"
               value={importText}
               onChange={(e) => setImportText(e.target.value)}
-              placeholder='{"moodEntries": [...], "exerciseEntries": [...], "foodEntries": [...] }'
+              placeholder='{"moodEntries": [...], "exerciseEntries": [...], "foodEntries": [...], "sleepEntries": [...] }'
               className="w-full px-4 py-2 border border-border-main rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent font-mono text-sm bg-surface text-text-main"
               rows="8"
             />
@@ -245,6 +245,16 @@ function FileManager() {
       "calories": 250,
       "timestamp": "2024-01-15T12:30:00.000Z",
       "time": "12:30 PM",
+      "date": "1/15/2024"
+    }
+  ],
+  "sleepEntries": [
+    {
+      "id": 1234567893,
+      "hoursSlept": 8,
+      "sleepQuality": 5,
+      "timestamp": "2024-01-15T08:00:00.000Z",
+      "time": "8:00 AM",
       "date": "1/15/2024"
     }
   ]
