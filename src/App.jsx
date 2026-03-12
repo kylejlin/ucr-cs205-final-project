@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { HealthDataProvider } from './context/HealthDataContext'
+import { HealthDataProvider, useHealthData } from './context/HealthDataContext'
+import { calculateStreak } from './utils/helpers'
 import MoodTracker from './modules/MoodTracker'
 import ExerciseTracker from './modules/ExerciseTracker'
 import FoodTracker from './modules/FoodTracker'
@@ -12,6 +13,16 @@ import CalorieGraph from './components/CalorieGraph'
 import LifestyleSuggestions from './components/LifestyleSuggestions'
 import HistoryView from './components/HistoryView'
 import FileManager from './components/FileManager'
+
+function DashboardStreak() {
+  const { moodEntries, exerciseEntries, foodEntries, sleepEntries } = useHealthData();
+  const streak = calculateStreak(moodEntries, foodEntries, exerciseEntries, sleepEntries);
+  return (
+    <div className="bg-gradient-to-r from-orange-400 to-red-500 dark:from-orange-600 dark:to-red-700 text-white font-bold rounded-lg shadow-md p-4 mb-2 text-center text-xl">
+      🔥 Current Streak: {streak} Day{streak !== 1 ? 's' : ''}
+    </div>
+  );
+}
 
 function App() {
   const { t, i18n } = useTranslation();
@@ -151,6 +162,7 @@ function App() {
 
           {activeTab === 'dashboard' && (
             <div className="space-y-6">
+              <DashboardStreak />
               <LifestyleSuggestions />
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <MoodTracker />
