@@ -26,6 +26,26 @@ function HistoryView() {
     return grouped
   }, [sortedEntries])
 
+  const getEntryStyle = (entry) => {
+    if (entry.entryType === 'exercise') {
+      return "bg-blue-50 border-blue-200 dark:bg-blue-900/30 dark:border-blue-800 text-blue-900 dark:text-blue-200"
+    }
+    if (entry.entryType === 'food') {
+      return "bg-amber-50 border-amber-200 dark:bg-amber-900/30 dark:border-amber-800 text-amber-900 dark:text-amber-200"
+    }
+    if (entry.entryType === 'mood') {
+      switch(entry.mood) {
+        case 1: return "bg-rose-50 border-rose-200 dark:bg-rose-900/30 dark:border-rose-800 text-rose-900 dark:text-rose-200";
+        case 2: return "bg-orange-50 border-orange-200 dark:bg-orange-900/30 dark:border-orange-800 text-orange-900 dark:text-orange-200";
+        case 3: return "bg-yellow-50 border-yellow-200 dark:bg-yellow-900/30 dark:border-yellow-800 text-yellow-900 dark:text-yellow-200";
+        case 4: return "bg-lime-50 border-lime-200 dark:bg-lime-900/30 dark:border-lime-800 text-lime-900 dark:text-lime-200";
+        case 5: return "bg-emerald-50 border-emerald-200 dark:bg-emerald-900/30 dark:border-emerald-800 text-emerald-900 dark:text-emerald-200";
+        default: return "bg-surface-hover border-border-main text-text-main";
+      }
+    }
+    return "bg-surface-hover border-border-main text-text-main"
+  }
+
   return (
     <div className="bg-surface rounded-lg shadow-lg p-6">
       <h2 className="text-2xl font-semibold text-text-main mb-6">{t('history.title')}</h2>
@@ -45,48 +65,48 @@ function HistoryView() {
                   {entries.map((entry) => (
                     <div
                       key={entry.id}
-                      className="flex justify-between items-center p-3 bg-surface-hover rounded-lg hover:bg-surface-hover transition-colors"
+                      className={`flex justify-between items-center p-3 rounded-lg border transition-colors ${getEntryStyle(entry)}`}
                     >
                       <div className="flex-1">
                         {entry.entryType === 'mood' ? (
                           <>
-                            <span className="font-medium text-text-main">
-                              {t('history.moodLabel')}: {entry.mood} – {t(`mood.labels.${entry.mood}`)}
+                            <span className="font-medium text-inherit">
+                              🧠 {t('history.moodLabel')}: {entry.mood} – {t(`mood.labels.${entry.mood}`)}
                             </span>
-                            <span className="text-text-muted text-sm ml-2">
+                            <span className="text-inherit opacity-80 text-sm ml-2">
                               • {entry.time}
                             </span>
                             {entry.note && (
-                              <p className="text-sm mt-2 text-text-main bg-surface p-2 rounded border border-border-main shadow-sm">
+                              <p className="text-sm mt-2 text-inherit bg-white/50 dark:bg-black/20 p-2 rounded border border-current shadow-sm">
                                 {entry.note}
                               </p>
                             )}
                           </>
                         ) : entry.entryType === 'exercise' ? (
                           <>
-                            <span className="font-medium text-text-main">
-                              {t('history.exerciseLabel')}: {t(`exercise.types.${entry.type}`)} ({entry.duration} {t('exercise.min')})
+                            <span className="font-medium text-inherit">
+                              🏃 {t('history.exerciseLabel')}: {t(`exercise.types.${entry.type}`)} ({entry.duration} {t('exercise.min')})
                             </span>
                             {entry.calories && (
-                              <span className="text-text-muted text-sm ml-2">
+                              <span className="text-inherit opacity-80 text-sm ml-2">
                                 | {entry.calories} {t('exercise.kcal')}
                               </span>
                             )}
-                            <span className="text-text-muted text-sm ml-2">
+                            <span className="text-inherit opacity-80 text-sm ml-2">
                               • {entry.time}
                             </span>
                           </>
                         ) : (
                           <>
-                            <span className="font-medium text-text-main">
-                              {t('history.foodLabel')}: {t(`food.mealTypes.${entry.mealType}`)} - {entry.foodName}
+                            <span className="font-medium text-inherit">
+                              🍎 {t('history.foodLabel')}: {t(`food.mealTypes.${entry.mealType}`)} - {entry.foodName}
                             </span>
                             {entry.calories && (
-                              <span className="text-text-muted text-sm ml-2">
+                              <span className="text-inherit opacity-80 text-sm ml-2">
                                 | {entry.calories} {t('food.kcal')}
                               </span>
                             )}
-                            <span className="text-text-muted text-sm ml-2">
+                            <span className="text-inherit opacity-80 text-sm ml-2">
                               • {entry.time}
                             </span>
                           </>
