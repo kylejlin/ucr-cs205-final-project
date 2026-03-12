@@ -73,7 +73,7 @@ function ExerciseTracker() {
           </select>
         </div>
 
-        <div className="flex gap-4">
+        <div className="flex flex-col sm:flex-row gap-4">
           <div className="flex-1">
             <label className="block text-sm font-medium text-text-main mb-1">
               {t('exercise.durationLabel')}
@@ -138,7 +138,7 @@ function ExerciseTracker() {
             .map((entry) => (
               <div
                 key={entry.id}
-                className="flex justify-between items-center p-3 bg-surface-hover rounded-lg hover:bg-surface-hover transition-colors"
+                className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0 p-3 bg-surface-hover rounded-lg hover:bg-surface-hover transition-colors"
               >
                 <div>
                   <span className="font-medium text-text-main">

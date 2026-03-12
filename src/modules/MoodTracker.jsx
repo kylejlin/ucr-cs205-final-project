@@ -52,12 +52,12 @@ function MoodTracker() {
         {t('mood.description')}
       </p>
 
-      <div className="flex justify-between mb-6 space-x-2">
+      <div className="flex flex-wrap sm:flex-nowrap justify-between gap-2 mb-6">
         {[1, 2, 3, 4, 5].map((mood) => (
           <button
             key={mood}
             onClick={() => handleSelectMood(mood)}
-            className={`flex-1 py-3 rounded-lg font-semibold border transition-colors ${selectedMood === mood
+            className={`flex-1 min-w-[3.5rem] p-2 sm:py-3 rounded-lg font-semibold border transition-colors ${selectedMood === mood
               ? 'bg-accent text-white border-accent'
               : 'bg-surface-hover text-text-main border-border-main hover:bg-gray-100 '
               }`}

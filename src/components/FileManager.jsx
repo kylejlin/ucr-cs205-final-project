@@ -104,7 +104,7 @@ function FileManager() {
               </p>
             </div>
           )}
-          <div className="flex gap-2">
+          <div className="flex flex-col sm:flex-row gap-2">
             <button
               onClick={async () => {
                 const success = await setupFileHandle()
@@ -181,7 +181,7 @@ function FileManager() {
             />
           </div>
 
-          <div className="flex gap-2">
+          <div className="flex flex-col sm:flex-row gap-2">
             <button
               onClick={() => handleImport()}
               className="flex-1 bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-accent-hover transition-colors font-medium"

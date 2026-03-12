@@ -34,18 +34,18 @@ function App() {
 
   return (
     <HealthDataProvider>
-      <div className="min-h-screen bg-gradient-to-br from-page-from to-page-to transition-colors duration-200">
-        <div className="container mx-auto px-4 py-8 max-w-7xl">
-          <header className="mb-8 flex justify-between items-start">
-            <div>
-              <h1 className="text-4xl font-bold text-text-main mb-2 transition-colors">
+      <div className="min-h-screen bg-gradient-to-br from-page-from to-page-to transition-colors duration-200 pt-[max(0px,env(safe-area-inset-top))] pb-[max(0px,env(safe-area-inset-bottom))] pl-[max(0px,env(safe-area-inset-left))] pr-[max(0px,env(safe-area-inset-right))]">
+        <div className="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
+          <header className="mb-6 sm:mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div className="w-full sm:w-auto">
+              <h1 className="text-3xl sm:text-4xl font-bold text-text-main mb-1 sm:mb-2 transition-colors">
                 {t('app.title')}
               </h1>
-              <p className="text-text-muted transition-colors">
+              <p className="text-sm sm:text-base text-text-muted transition-colors">
                 {t('app.subtitle')}
               </p>
             </div>
-            <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2 w-full sm:w-auto mt-2 sm:mt-0">
               <select
                 className="px-3 py-2 bg-surface text-text-main border border-border-main rounded-md shadow-sm hover:bg-surface-hover transition outline-none"
                 value={i18n.language}
@@ -69,8 +69,8 @@ function App() {
             </div>
           </header>
 
-          <div className="mb-6 border-b border-gray-200">
-            <nav className="flex space-x-8">
+          <div className="mb-6 border-b border-gray-200 overflow-x-auto">
+            <nav className="flex space-x-4 sm:space-x-8 whitespace-nowrap min-w-max pb-1 px-1">
               <button
                 onClick={() => setActiveTab('dashboard')}
                 className={`py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'dashboard'
